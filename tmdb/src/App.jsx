@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
 import MoviePage from "./pages/MoviePage";
+import ActorPage from "./pages/ActorPage";
 
 import "./App.css";
 

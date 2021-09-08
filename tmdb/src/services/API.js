@@ -24,3 +24,9 @@ export const getCastByMovieId = async (id) => {
     `movie/${id}/credits?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
   );
 };
+
+export const getMoviesByActorId = async (id) => {
+  return get(
+    `discover/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_people=${id}&with_watch_monetization_types=flatrate`
+  );
+};
