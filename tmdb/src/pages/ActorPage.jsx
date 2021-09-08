@@ -10,8 +10,6 @@ const ActorPage = () => {
     getMoviesByActorId(id)
   );
 
-  console.log(data);
-
   return <div>Actor</div>;
 };
 

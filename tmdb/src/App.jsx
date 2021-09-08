@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
+import GenrePage from "./pages/GenrePage";
 
 import "./App.css";
 
@@ -23,6 +24,10 @@ function App() {
 
         <Route exact path="/movies/actor/:id">
           <ActorPage />
+        </Route>
+
+        <Route exact path="/movies/genre/:name/:id">
+          <GenrePage />
         </Route>
       </Switch>
     </>

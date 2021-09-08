@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import NavbarLinks from "./NavbarLinks";
 
 const Navbar = () => {
   return (
@@ -8,6 +9,7 @@ const Navbar = () => {
         <li>
           <NavLink to="/movies/top-rated">TOP RATED MOVIES</NavLink>
         </li>
+        <NavbarLinks />
       </ul>
     </nav>
   );

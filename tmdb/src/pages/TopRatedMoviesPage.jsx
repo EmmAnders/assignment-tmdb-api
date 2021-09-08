@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getTopRatedMovies } from "../services/API";
 
+
 const TopRatedMoviesPage = () => {
   const history = useHistory();
 
@@ -15,6 +16,8 @@ const TopRatedMoviesPage = () => {
     history.push(`/movies/${movieId}`);
     window.scrollTo(0, 0);
   };
+
+  {data && (console.log(data))}
 
   return (
     <>
@@ -29,6 +32,7 @@ const TopRatedMoviesPage = () => {
           ))}
         </main>
       )}
+     
     </>
   );
 };
