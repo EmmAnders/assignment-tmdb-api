@@ -1,11 +1,30 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
+import MoviePage from "./pages/MoviePage";
+
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <p>app</p>
-    </div>
+    <>
+      <Navbar />
+      <Switch>
+        <Route exact path="/movies/top-rated">
+          <TopRatedMoviesPage />
+        </Route>
+
+        <Route exact path="/movies/:id">
+          <MoviePage />
+        </Route>
+
+        <Route exact path="/movies/actor/:id">
+          <ActorPage />
+        </Route>
+      </Switch>
+    </>
   );
 }
 
