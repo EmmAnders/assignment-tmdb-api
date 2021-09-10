@@ -3,34 +3,41 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
+import MostPopularMoviesPage from "./pages/MostPopularMoviesPage.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
-import GenrePage from "./pages/GenrePage";
+import MoviesByGenrePage from "./pages/MoviesByGenrePage";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Switch>
-        <Route exact path="/movies/top-rated">
-          <TopRatedMoviesPage />
-        </Route>
+    <div className="site-wrapper">
+      <div class="app">
+        <Navbar />
+        <Switch>
+          <Route exact path="/movies/top-rated">
+            <TopRatedMoviesPage />
+          </Route>
 
-        <Route exact path="/movies/genre/:name/:id">
-          <GenrePage />
-        </Route>
+          <Route exact path="/movies/most-popular">
+            <MostPopularMoviesPage />
+          </Route>
 
-        <Route exact path="/movies/:id">
-          <MoviePage />
-        </Route>
+          <Route exact path="/movies/genre/:name/:id">
+            <MoviesByGenrePage />
+          </Route>
 
-        <Route exact path="/movies/actor/:id">
-          <ActorPage />
-        </Route>
-      </Switch>
-    </>
+          <Route exact path="/movies/:id">
+            <MoviePage />
+          </Route>
+
+          <Route exact path="/movies/actor/:id">
+            <ActorPage />
+          </Route>
+        </Switch>
+      </div>
+    </div>
   );
 }
 
