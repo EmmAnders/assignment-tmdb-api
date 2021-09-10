@@ -26,6 +26,12 @@ export const getTopRatedMovies = async () => {
   );
 };
 
+export const getMostPopularMovies = async () => {
+  return get(
+    "/discover/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&sort_by=popularity.desc"
+  );
+};
+
 export const getMovieDetails = async (id) => {
   return get(
     `movie/${id}?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
