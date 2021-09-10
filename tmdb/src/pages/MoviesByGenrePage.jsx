@@ -5,8 +5,11 @@ import { useQuery } from "react-query";
 import { useUrlSearchParams } from "use-url-search-params";
 import { getMoviesByGenreId } from "../services/API";
 
+import Card from "../components/Card";
+import "../scss/pages/Movies.scss";
+
 const GenrePage = () => {
-  const { id } = useParams();
+  const { id, name } = useParams();
   const history = useHistory();
 
   const [params, setParams] = useUrlSearchParams({ page: 1 }, { page: Number });
@@ -42,20 +45,31 @@ const GenrePage = () => {
 
   return (
     <div>
-      <h1>GENRE PAGE</h1>
-
       {isError && <div>{error.message}</div>}
 
       {isLoading && <div>Loading...</div>}
 
       {data?.results && (
-        <main>
-          {data.results.map((movie, i) => (
-            <div onClick={() => handleClickToMovieId(movie.id)} key={movie.id}>
-              <h3>{movie.title}</h3>
-              <p>{movie.overview}</p>
-            </div>
-          ))}
+        <main className="page-wrapper">
+          <section className="header">
+            <h1>{name} Movies</h1>
+          </section>
+          <section className="content">
+            {data.results.map((movie, i) => (
+              <div
+                onClick={() => handleClickToMovieId(movie.id)}
+                key={movie.id}
+              >
+                <Card
+                  src={movie.poster_path}
+                  title={movie.title}
+                  releaseDate={movie.release_date}
+                  voteAverage={movie.vote_average}
+                  genre1={movie.genre_ids.map((id) => id).join("/")}
+                ></Card>
+              </div>
+            ))}
+          </section>
 
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 1))}
