@@ -3,6 +3,7 @@
 
 body {
   background-color: $color-foreground;
+  background-color: $color-black-dark;
 }
 
 body,
@@ -40,14 +41,15 @@ body {
 p,
 h1,
 h2 {
-  color: $color-font-black;
+  color: $color-white;
 }
 
 .site-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: $color-background;
+
+  background-color: $color-black-dark;
 
   @include tablet {
     padding: 3rem;

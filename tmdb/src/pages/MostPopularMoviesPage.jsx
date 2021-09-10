@@ -40,7 +40,8 @@ const MostPopularMoviesPage = () => {
                   /*   originalTitle={movie.original_title}
                   originalLanguage={movie.original_language} */
                   releaseDate={movie.release_date}
-                  voteAverage={movie.vote_average}
+                  subtitle={"Popularity"}
+                  voteAverage={movie.popularity}
                   genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>
               </div>

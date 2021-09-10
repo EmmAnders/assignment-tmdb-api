@@ -40,6 +40,7 @@ const TopRatedMoviesPage = () => {
                   /*   originalTitle={movie.original_title}
                   originalLanguage={movie.original_language} */
                   releaseDate={movie.release_date}
+                  subtitle={"Average Vote"}
                   voteAverage={movie.vote_average}
                   genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>

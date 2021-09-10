@@ -28,6 +28,7 @@
   .title {
     h2 {
       font-size: 1rem;
+      color: $color-white;
       @include desktop {
       }
     }
@@ -36,15 +37,14 @@
   .hover-content {
     position: absolute;
     top: 0;
-    background: rgba(0, 0, 0, 0.5); /* Black see-through */
     width: 100%;
     transition: 0.5s ease;
     opacity: 0;
-    background: $color-lavender;
-    color: white;
+    background: $color-green;
     cursor: pointer;
     p {
       font-size: 0.8rem;
+      color: $color-black-dark;
     }
 
     .details-wrapper {
@@ -52,7 +52,7 @@
       justify-content: space-between;
 
       .sub-title {
-        color: $color-font-grey;
+        color: $color-white;
         font-size: 0.6rem;
       }
     }
