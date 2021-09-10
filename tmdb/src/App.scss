@@ -1,0 +1,64 @@
+@import "./scss/Variables.scss";
+@import "./scss/Mixins.scss";
+
+body {
+  background-color: $color-foreground;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p,
+h1,
+h2 {
+  color: $color-font-black;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $color-background;
+
+  @include tablet {
+    padding: 3rem;
+  }
+
+  @include desktop {
+    margin: 1.5rem;
+  }
+
+  .app {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
