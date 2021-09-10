@@ -6,6 +6,7 @@ import { useUrlSearchParams } from "use-url-search-params";
 import { getMoviesByGenreId } from "../services/API";
 
 import Card from "../components/Card";
+import Pagination from "../components/Pagination";
 import "../scss/pages/Movies.scss";
 
 const GenrePage = () => {
@@ -70,27 +71,19 @@ const GenrePage = () => {
               </div>
             ))}
           </section>
-
-          <button
-            onClick={() => setPage((old) => Math.max(old - 1, 1))}
-            disabled={page === 1}
-          >
-            Previous Page
-          </button>
-          <h4>
-            Page {page} of {data.total_pages}
-          </h4>
-
-          <button
-            onClick={() => {
+          
+          <Pagination
+            onClickPrevious={() => setPage((old) => Math.max(old - 1, 1))}
+            disabledPrevious={page === 1}
+            page={page}
+            totalPages={data.total_pages}
+            onClickNext={() => {
               if (!isPreviousData && data.page) {
                 setPage((old) => old + 1);
               }
             }}
-            disabled={isPreviousData || !data.page}
-          >
-            Next
-          </button>
+            disabledNext={isPreviousData || !data.page}
+          ></Pagination>
         </main>
       )}
     </div>
