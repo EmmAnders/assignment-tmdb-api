@@ -1,0 +1,28 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+.page-wrapper {
+  .header {
+    background: $color-red;
+    padding: 1rem;
+    margin: 5vh 0vh;
+    text-transform: uppercase;
+    h1 {
+      font-weight: 400;
+      color: $color-font-black-dark;
+    }
+  }
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: calc(2em + 2vh) calc(1.5em + 1vmin);
+    grid-auto-flow: row dense;
+
+    @include tablet {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    @include desktop {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+}
