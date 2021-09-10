@@ -1,0 +1,75 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+.card {
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  .img {
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .genres {
+    display: flex;
+    padding: 0.5rem 0rem;
+
+    p {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+      color: $color-font-grey;
+    }
+  }
+
+  .title {
+    h2 {
+      font-size: 1rem;
+      @include desktop {
+      }
+    }
+  }
+
+  .hover-content {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: 0.5s ease;
+    opacity: 0;
+    background: $color-lavender;
+    color: white;
+    cursor: pointer;
+    p {
+      font-size: 0.8rem;
+    }
+
+    .details-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      .sub-title {
+        color: $color-font-grey;
+        font-size: 0.6rem;
+      }
+    }
+
+    .cta-wrapper,
+    .cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    > * {
+      padding: 1.5rem;
+    }
+  }
+
+  &:hover .hover-content {
+    opacity: 1;
+  }
+}
