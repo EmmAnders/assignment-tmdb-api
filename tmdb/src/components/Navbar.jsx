@@ -7,7 +7,15 @@ const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <NavLink to="/movies/top-rated">TOP RATED MOVIES</NavLink>
+          <NavLink to="/movies/top-rated">TOP RATED</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/movies/most-popular">MOST POPULAR</NavLink>
+        </li>
+
+        <li>
+          <button>MOVIES BY GENRE</button>
         </li>
         <li>
           <NavbarLinks />
