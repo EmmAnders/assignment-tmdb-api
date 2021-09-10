@@ -9,7 +9,9 @@ const Navbar = () => {
         <li>
           <NavLink to="/movies/top-rated">TOP RATED MOVIES</NavLink>
         </li>
-        <NavbarLinks />
+        <li>
+          <NavbarLinks />
+        </li>
       </ul>
     </nav>
   );

@@ -12,13 +12,12 @@ const NavbarLinks = (props) => {
       {data?.genres && (
         <>
           {data.genres.map((genre, i) => (
-            <li key={i}>
-              <NavLink
-                to={`/movies/genre/${genre.name.toLowerCase()}/${genre.id}`}
-              >
-                {genre.name}
-              </NavLink>
-            </li>
+            <NavLink
+              key={genre.id}
+              to={`/movies/genre/${genre.name.toLowerCase()}/${genre.id}`}
+            >
+              {genre.name}
+            </NavLink>
           ))}
         </>
       )}
