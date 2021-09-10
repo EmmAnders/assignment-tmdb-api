@@ -14,7 +14,7 @@ export const getAllGenres = async () => {
 };
 
 export const getMoviesByGenreId = async ({ queryKey }) => {
-  const [_key, { page = 1, id }] = queryKey;
+  const [_key, { page = null, id }] = queryKey;
   return get(
     `/discover/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${id}&with_watch_monetization_types=flatrate`
   );

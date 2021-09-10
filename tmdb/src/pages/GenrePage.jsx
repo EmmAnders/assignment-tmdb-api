@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useUrlSearchParams } from "use-url-search-params";
 import { getMoviesByGenreId } from "../services/API";
 
 const GenrePage = () => {
   const { id } = useParams();
   const history = useHistory();
 
-  const [page, setPage] = useState(1);
+  const [params, setParams] = useUrlSearchParams({ page: 1 }, { page: Number });
+  const [page, setPage] = useState(params.page);
+
   const {
     isLoading,
     isError,
@@ -20,18 +23,22 @@ const GenrePage = () => {
     keepPreviousData: true,
   });
 
-  const prevPage = () => {
-    if (page > 1) setPage(page - 1);
-  };
-
-  const nextPage = () => {
-    setPage(page + 1);
-  };
-
   const handleClickToMovieId = (movieId) => {
     history.push(`/movies/${movieId}`);
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    setParams({ ...params, page });
+  }, [page]);
+
+  useEffect(() => {
+    return history.listen((location) => {
+      if (location.pathname) {
+        setPage(1);
+      }
+    });
+  }, [id]);
 
   return (
     <div>
@@ -49,23 +56,29 @@ const GenrePage = () => {
               <p>{movie.overview}</p>
             </div>
           ))}
+
+          <button
+            onClick={() => setPage((old) => Math.max(old - 1, 1))}
+            disabled={page === 1}
+          >
+            Previous Page
+          </button>
+          <h4>
+            Page {page} of {data.total_pages}
+          </h4>
+
+          <button
+            onClick={() => {
+              if (!isPreviousData && data.page) {
+                setPage((old) => old + 1);
+              }
+            }}
+            disabled={isPreviousData || !data.page}
+          >
+            Next
+          </button>
         </main>
       )}
-
-      <div>
-        <button onClick={prevPage} disabled={page <= 1}>
-          Previous Page
-        </button>
-
-        <span>Current Page: {page}</span>
-
-        <button
-          onClick={nextPage}
-          /*    disabled={isPreviousData || !data.next} */
-        >
-          Next Page
-        </button>
-      </div>
     </div>
   );
 };
