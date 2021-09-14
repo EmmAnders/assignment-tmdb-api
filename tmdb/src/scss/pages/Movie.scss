@@ -1,0 +1,134 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+.movie-page-container {
+  @include desktop {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+
+    grid-template-areas:
+      "title title"
+      "poster overview"
+      "poster specs "
+      "poster actors "
+      "subheading subheading"
+      "movies movies"
+      "loadMore loadMore";
+  }
+
+  .poster {
+    @include desktop {
+      grid-area: poster;
+      margin-right: 2rem;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .title {
+    @include desktop {
+      grid-area: title;
+    }
+  }
+
+  .overview {
+    padding: 4vh 0rem;
+
+    @include desktop {
+      grid-area: overview;
+      padding: 0rem;
+      padding-bottom: 1rem;
+
+      font-size: 1.2rem;
+    }
+
+    h2 {
+      letter-spacing: -2px;
+      font-weight: 500;
+    }
+  }
+
+  .movie-specs-container {
+    @include desktop {
+      grid-area: specs;
+    }
+
+    .dropdown {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .specs {
+      padding: 0.5rem 0rem;
+      border-bottom: 1px solid $color-grey;
+
+      @include desktop {
+        grid-area: detailsWrapper;
+        padding: 1rem 0rem;
+      }
+
+      p:first-child {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+      }
+
+      .name {
+        display: flex;
+        p {
+          font-weight: 200;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .table {
+    grid-area: actors;
+    width: 100%;
+    td {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid $color-grey;
+      padding: 0.8rem 0rem;
+      span {
+        font-style: italic;
+      }
+    }
+  }
+
+  .movies-container {
+    @include desktop {
+      grid-area: subheading;
+    }
+
+    .movies {
+      > * {
+        margin-bottom: 1.5rem;
+      }
+      @include desktop {
+        grid-area: movies;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
+        grid-gap: calc(2em + 2vh) calc(1.5em + 1vmin);
+        grid-auto-flow: row dense;
+
+        > * {
+          margin-bottom: 0rem;
+        }
+      }
+    }
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0vh;
+    width: 100%;
+  }
+}
