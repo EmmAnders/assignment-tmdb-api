@@ -3,35 +3,77 @@ import { NavLink, Link } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
 
 import "../scss/components/Navbar.scss";
+import arrow from "../assets/icons/arrow-right.svg";
 
 const Navbar = () => {
+  const [openMenu, setOpenMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 
-  const handleOpenDropdown = () => {
+  const handleMenu = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  const handleGenreOpenDropdown = () => {
     setOpenDropdown(!openDropdown);
   };
 
   return (
-    <nav>
-      <ul>
-        <div>
-          <li onClick={handleOpenDropdown}>MOVIES BY GENRE</li>
-          
-          <li>
-            <NavLink to="/movies/top-rated">TOP RATED</NavLink>
-          </li>
+    <header>
+      <nav>
+        <div
+          onClick={handleMenu}
+          className={openMenu ? "show" : "hidden"}
+        ></div>
 
-          <li>
-            <NavLink to="/movies/most-popular">MOST POPULAR</NavLink>
-          </li>
+        <div className="menu">
+          <button className="menu-button" onClick={handleMenu}>
+            <span>MOVIES</span>
+            <img src={arrow} alt="" />
+          </button>
         </div>
-        {openDropdown && (
-          <div className="genre-links">
-            <NavbarLinks />
-          </div>
+
+        {openMenu && (
+          <ul>
+            <div>
+              <li onClick={handleGenreOpenDropdown}>
+                Movies By Genre
+                {/*   <img src={arrow} alt="" /> */}
+              </li>
+
+              {openDropdown && (
+                <div onClick={handleMenu} className="genre-links">
+                  <NavbarLinks />
+                </div>
+              )}
+
+              <li onClick={handleMenu}>
+                <NavLink to="/movies/top-rated">Top rated</NavLink>
+                {/*    <img src={arrow} alt="" /> */}
+              </li>
+
+              <li onClick={handleMenu}>
+                <NavLink to="/movies/most-popular">Most popular</NavLink>
+                {/*    <img src={arrow} alt="" /> */}
+              </li>
+
+              <li onClick={handleMenu}>
+                <NavLink to="/movies/latest">Latest movies</NavLink>
+                {/*    <img src={arrow} alt="" /> */}
+              </li>
+              <div
+                className={
+                  openDropdown ? "close-btn-wrapper-lw" : "close-btn-wrapper"
+                }
+              >
+                <button className="close-button" onClick={handleMenu}>
+                  <span>Close (X)</span>
+                </button>
+              </div>
+            </div>
+          </ul>
         )}
-      </ul>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
