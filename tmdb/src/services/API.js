@@ -26,15 +26,27 @@ export const getTopRatedMovies = async () => {
   );
 };
 
-export const getMostPopularMovies = async () => {
+export const getMostPopularMovies = async ({ page = 1 }) => {
   return get(
-    "/discover/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&sort_by=popularity.desc"
+    `/movie/popular?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&page=${page}`
+  );
+};
+
+export const getLatestMovies = async () => {
+  return get(
+    "/movie/now_playing?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&page=1"
   );
 };
 
 export const getMovieDetails = async (id) => {
   return get(
     `movie/${id}?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
+  );
+};
+
+export const getSimiliarMovies = async (id) => {
+  return get(
+    `movie/${id}/similar?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&page=1`
   );
 };
 
@@ -47,5 +59,11 @@ export const getCastByMovieId = async (id) => {
 export const getMoviesByActorId = async (id) => {
   return get(
     `discover/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_people=${id}&with_watch_monetization_types=flatrate`
+  );
+};
+
+export const getActorProfileById = async (id) => {
+  return get(
+    `/person/${id}?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
   );
 };
