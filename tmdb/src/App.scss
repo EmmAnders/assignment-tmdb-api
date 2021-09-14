@@ -2,8 +2,7 @@
 @import "./scss/Mixins.scss";
 
 body {
-  background-color: $color-foreground;
-  background-color: $color-black-dark;
+  background-color: $color-white;
 }
 
 body,
@@ -40,27 +39,26 @@ body {
 
 p,
 h1,
-h2 {
-  color: $color-white;
+h2,
+a,
+button,
+svg {
+  color: $color-black;
+  line-height: 1.4;
 }
 
-.site-wrapper {
+.site-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  background-color: $color-black-dark;
+  background-color: $color-white;
+  padding: 0.5rem;
 
   @include tablet {
-    padding: 3rem;
+    padding: 19px 23px;
   }
 
-  @include desktop {
+  /*   @include desktop {
     margin: 1.5rem;
-  }
-
-  .app {
-    width: 90%;
-    margin: 0 auto;
-  }
+  } */
 }
