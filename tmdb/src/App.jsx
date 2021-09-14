@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import ContextProvider from "./contexts/Context";
 
 import Navbar from "./components/Navbar";
 import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
@@ -7,15 +8,20 @@ import MostPopularMoviesPage from "./pages/MostPopularMoviesPage.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
+import LatestMoviesPage from "./pages/LatestMoviesPage";
 
 import "./App.scss";
 
 function App() {
   return (
-    <div className="site-wrapper">
-      <div class="app">
-        <Navbar />
+    <ContextProvider>
+      <Navbar />
+      <main className="site-container">
         <Switch>
+          <Route exact path="/movies/latest">
+            <LatestMoviesPage />
+          </Route>
+
           <Route exact path="/movies/top-rated">
             <TopRatedMoviesPage />
           </Route>
@@ -36,8 +42,8 @@ function App() {
             <ActorPage />
           </Route>
         </Switch>
-      </div>
-    </div>
+      </main>
+    </ContextProvider>
   );
 }
 
