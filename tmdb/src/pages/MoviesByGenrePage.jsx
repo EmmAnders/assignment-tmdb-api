@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useUrlSearchParams } from "use-url-search-params";
+
+//Context, API
+import { Context } from "../contexts/Context";
 import { getMoviesByGenreId } from "../services/API";
 
+//Components
+import HeadingLg from "../components/HeadingLg";
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
+
+//Styles
 import "../scss/pages/Movies.scss";
 
 const GenrePage = () => {
+  const { handleClickToMovieId } = useContext(Context);
   const { id, name } = useParams();
   const history = useHistory();
 
@@ -21,16 +29,10 @@ const GenrePage = () => {
     isError,
     error,
     data,
-    isFetching,
     isPreviousData,
   } = useQuery(["genre-movies", { page, id }], getMoviesByGenreId, {
     keepPreviousData: true,
   });
-
-  const handleClickToMovieId = (movieId) => {
-    history.push(`/movies/${movieId}`);
-    window.scrollTo(0, 0);
-  };
 
   useEffect(() => {
     setParams({ ...params, page });
@@ -45,33 +47,27 @@ const GenrePage = () => {
   }, [id]);
 
   return (
-    <div>
+    <>
       {isError && <div>{error.message}</div>}
-
       {isLoading && <div>Loading...</div>}
 
       {data?.results && (
-        <main className="page-wrapper">
-          <section className="header">
-            <h1>{name} Movies</h1>
-          </section>
-          <section className="content">
+        <section className="movies-page-container">
+          <HeadingLg text={name}></HeadingLg>
+          <section className="page-content">
             {data.results.map((movie, i) => (
-              <div
-                onClick={() => handleClickToMovieId(movie.id)}
-                key={movie.id}
-              >
+              <React.Fragment key={movie.id}>
                 <Card
+                  onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
                   releaseDate={movie.release_date}
                   voteAverage={movie.vote_average}
-                  genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>
-              </div>
+              </React.Fragment>
             ))}
           </section>
-          
+
           <Pagination
             onClickPrevious={() => setPage((old) => Math.max(old - 1, 1))}
             disabledPrevious={page === 1}
@@ -84,9 +80,9 @@ const GenrePage = () => {
             }}
             disabledNext={isPreviousData || !data.page}
           ></Pagination>
-        </main>
+        </section>
       )}
-    </div>
+    </>
   );
 };
 

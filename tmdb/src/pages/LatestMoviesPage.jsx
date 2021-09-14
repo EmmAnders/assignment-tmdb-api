@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+
 import { useQuery } from "react-query";
 
 //Context, API
-import { getTopRatedMovies } from "../services/API";
+import { getLatestMovies } from "../services/API";
 import { Context } from "../contexts/Context";
+
 
 //Components
 import HeadingLg from "../components/HeadingLg";
@@ -12,23 +14,24 @@ import Card from "../components/Card";
 //Styles
 import "../scss/pages/Movies.scss";
 
-const TopRatedMoviesPage = () => {
+const LatestMoviesPage = () => {
   const { handleClickToMovieId } = useContext(Context);
 
   const { data, error, isError, isLoading } = useQuery(
-    "top-rated-movies",
-    getTopRatedMovies
+    "latest-movies",
+    getLatestMovies
   );
 
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
+
       {data?.results && (
         <section className="movies-page-container">
-          <HeadingLg text="Top rated"></HeadingLg>
+          <HeadingLg text="Latest"></HeadingLg>
           <section className="page-content">
-            {data.results.map((movie, i) => (
+            {data.results.map((movie) => (
               <React.Fragment key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
@@ -48,4 +51,4 @@ const TopRatedMoviesPage = () => {
   );
 };
 
-export default TopRatedMoviesPage;
+export default LatestMoviesPage;
