@@ -6,7 +6,7 @@ import { getTopRatedMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
 //Components
-import HeadingLg from "../components/HeadingLg";
+import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
 //Styles
@@ -14,11 +14,24 @@ import "../scss/pages/Movies.scss";
 
 const TopRatedMoviesPage = () => {
   const { handleClickToMovieId } = useContext(Context);
-
   const { data, error, isError, isLoading } = useQuery(
     "top-rated-movies",
     getTopRatedMovies
   );
+
+  const textArray = [
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+    "top rated",
+  ];
 
   return (
     <>
@@ -26,7 +39,7 @@ const TopRatedMoviesPage = () => {
       {isError && <p>({error})</p>}
       {data?.results && (
         <section className="movies-page-container">
-          <HeadingLg text="Top rated"></HeadingLg>
+          <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <section className="page-content">
             {data.results.map((movie, i) => (
               <React.Fragment key={movie.id}>

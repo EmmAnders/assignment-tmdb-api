@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ContextProvider from "./contexts/Context";
 
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
 import MostPopularMoviesPage from "./pages/MostPopularMoviesPage.jsx";
 import MoviePage from "./pages/MoviePage";
@@ -16,8 +17,13 @@ function App() {
   return (
     <ContextProvider>
       <Navbar />
+
       <main className="site-container">
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+
           <Route exact path="/movies/latest">
             <LatestMoviesPage />
           </Route>

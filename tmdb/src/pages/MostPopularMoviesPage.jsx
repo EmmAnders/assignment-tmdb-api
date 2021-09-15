@@ -6,7 +6,7 @@ import { Context } from "../contexts/Context";
 import { getMostPopularMovies } from "../services/API";
 
 //Components
-import HeadingLg from "../components/HeadingLg";
+import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
 //Styles
@@ -20,6 +20,18 @@ const MostPopularMoviesPage = () => {
     getMostPopularMovies
   );
 
+  let textArray = [
+    " Popular",
+    "Popular",
+    " Popular",
+    "Popular",
+    " Popular",
+    " Popular",
+    " Popular",
+    " Popular",
+    "Popular",
+  ];
+
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -27,7 +39,7 @@ const MostPopularMoviesPage = () => {
 
       {data?.results && (
         <section className="movies-page-container">
-          <HeadingLg text="Most popular"></HeadingLg>
+          <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <section className="page-content">
             {data.results.map((movie) => (
               <React.Fragment key={movie.id}>

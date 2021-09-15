@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -6,7 +6,12 @@ import { useQuery } from "react-query";
 import { Context } from "../contexts/Context";
 import { getMoviesByActorId, getActorProfileById } from "../services/API";
 
+//Animations
+import Marquee from "react-fast-marquee";
+import FadeInAnimation from "../animations/FadeInAnimation";
+
 //Components
+import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import HeadingLg from "../components/HeadingLg";
 import HeadingSm from "../components/HeadingSm";
 import Card from "../components/Card";
@@ -35,6 +40,22 @@ const ActorPage = () => {
     setLoadMovies(loadMovies + 5);
   };
 
+  const [actorNameArray, setActorNameArray] = useState([]);
+
+  //Names for animation on heading
+  useEffect(() => {
+    if (profile.data) {
+      setActorNameArray([
+        profile.data.name,
+        profile.data.name,
+        profile.data.name,
+        profile.data.name,
+        profile.data.name,
+      ]);
+    }
+  }, [profile.data]);
+
+
   return (
     <section className="actor-page-container">
       {movies.isError || (profile.isError && <div>{error.message}</div>)}
@@ -43,10 +64,12 @@ const ActorPage = () => {
       {profile.data && (
         <>
           <section className="profile-container">
-            <HeadingLg text={profile.data.name}></HeadingLg>
+            <MarqueeHeadingLg textArray={actorNameArray}></MarqueeHeadingLg>
 
             <section className="subheading">
-              <p>{profile.data.place_of_birth}</p>
+              <Marquee direction="right" speed={[75]} gradient={false}>
+                <p>{profile.data.place_of_birth}</p>
+              </Marquee>
             </section>
 
             <section className="content">
@@ -83,12 +106,15 @@ const ActorPage = () => {
                   </a>
                 </div>
               </div>
+
               <div className="text">
                 <p>{profile.data.biography}</p>
               </div>
             </section>
           </section>
-          <HeadingSm text={"Movies by" + " " + profile.data.name}></HeadingSm>
+          <HeadingSm
+            text={"Movies by" + " " /* profile.data.name */}
+          ></HeadingSm>
         </>
       )}
 

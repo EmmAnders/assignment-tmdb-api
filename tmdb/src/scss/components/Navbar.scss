@@ -1,19 +1,43 @@
 @import "../Variables.scss";
 @import "../Mixins.scss";
 
+body.nav-open {
+  overflow: hidden;
+}
+
 nav {
   width: 100%;
   text-transform: uppercase;
-  margin-bottom: 20vh;
 
-  .show {
+  &.mb-sm {
+    margin-bottom: 15vh;
+  }
+
+  &.mb-lg {
+    margin-bottom: 15vh;
+
+    @include tablet {
+      margin-bottom: 35vh;
+    }
+
+    @include desktop {
+      margin-bottom: 25vh;
+    }
+
+    @include desktop-lg {
+      margin-bottom: 35vh;
+    }
+
+    @include desktop-xl {
+    }
+  }
+
+  .show-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100vw;
-    height: 100vh;
     background-color: #262626af;
     z-index: 120;
   }
@@ -23,71 +47,35 @@ nav {
   }
 
   .menu {
-    position: absolute;
-    top: 0;
-    left: 50%;
+    padding: 0.5rem;
+    /*   position: absolute; */
+    /*     top: 5vh; */
+    /* left: 50%;
     -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    margin-top: 10vh;
+    transform: translateX(-50%); */
 
     .menu-button {
-      /* margin: 40px 0px; */
       background: none;
-      padding: 0.8rem;
-      display: inline-block;
       text-align: center;
       text-decoration: none;
       border: 0;
       cursor: pointer;
       font-size: 2rem;
-      letter-spacing: -2px;
-      position: relative;
-      display: inline-block;
-      margin: 0 10px 60px;
-      transition: all 0.1s ease;
-
-      span {
-        display: inline-block;
-        position: relative;
-        z-index: 2;
-        transition: all 0.3s ease;
-        text-align: center;
-      }
+      letter-spacing: -3px;
+      display: flex;
+      align-items: center;
 
       img {
         display: inline-block;
-        position: relative;
-        z-index: 2;
-        top: -10px;
-      }
-
-      &:before {
-        content: "";
-        position: absolute;
-        width: 112px;
-        height: 112px;
         border-radius: 50%;
-        background: $color-red;
-        z-index: 1;
-        top: -30px;
-        right: 4px;
-        transition: all 0.3s ease;
-      }
-
-      &:hover::before {
-        background: $color-lavender;
-        color: $color-black;
-        top: -60px;
-        right: 4px;
-        width: 170px;
-        height: 170px;
+        padding: 1rem;
+        background: radial-gradient(circle, #9198e5 -40%, transparent 70%);
       }
     }
   }
 
   ul {
     background: $color-white;
-    top: -100%;
     z-index: 200;
     max-height: 100vh;
     position: fixed;
@@ -97,92 +85,48 @@ nav {
     transform: none;
     transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 
+    .menu-item.genre {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        color: $color-black;
+      }
+    }
+
+    .close-btn-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     li {
-      cursor: pointer;
       list-style: none;
-      font-size: 2rem;
+      font-size: 1.3rem;
       color: $color-black;
       border-bottom: 1px solid $color-black;
-      padding: 40px 23px;
-      /* 
-      &:hover {
-        background-color: $color-white;
-        color: $color-black;
+      padding: 10px 10px;
 
-        a,
-        svg,
-        img {
-          color: $color-black;
-        }
-      } */
+      @include tablet {
+        padding: 20px 20px;
+        font-size: 2rem;
+      }
+
+      @include desktop {
+        padding: 20px 20px;
+      }
 
       a {
-        text-decoration: none;
-        color: $color-black;
-      }
-    }
-
-    .close-btn-wrapper,
-    .close-btn-wrapper-lw {
-      background-color: $color-white;
-      width: 100%;
-      padding: 40px 23px;
-
-      .close-button {
-        position: relative;
-        top: 50px;
-        left: 50%;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-        transition: all 0.1s ease;
-        background: none;
-        padding: 0.8rem;
-        text-align: center;
-        text-decoration: none;
-        border: 0;
         cursor: pointer;
-        font-size: 2rem;
-        letter-spacing: -2px;
-        text-transform: uppercase;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        text-decoration: none;
 
-        span {
-          display: inline-block;
-          position: relative;
-          z-index: 2;
-          transition: all 0.3s ease;
-          text-align: center;
-        }
-
-        &:before {
-          content: "";
-          position: absolute;
-          border-radius: 50%;
-          background: $color-red;
-          z-index: 1;
-          width: 170px;
-          height: 170px;
-          top: -50px;
-          right: 0px;
-          transition: all 0.3s ease;
-        }
-
-        &:hover {
+        p {
           color: $color-black;
         }
-
-        &:hover::before {
-          background: $color-lavender;
-          width: 112px;
-          height: 112px;
-          top: -30px;
-          right: 0px;
-          font-size: 5rem;
-        }
       }
-    }
-
-    .close-btn-wrapper-lw {
-      top: 750px;
     }
   }
 

@@ -2,65 +2,42 @@
 @import "../Mixins.scss";
 
 .card {
-  position: relative;
   cursor: pointer;
+  overflow: hidden;
 
   .card-img {
+    overflow: hidden;
+    display: inline-block;
+
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+
+      @include desktop {
+        width: 100%;
+        height: 30vw;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+        transform-origin: 50% 50%;
+      }
     }
   }
 
   .card-title {
     h2 {
-      font-size: 0.8rem;
+      font-size: 1rem;
       color: $color-black;
       margin-top: 0.5rem;
       text-transform: uppercase;
+      font-weight: 200;
+      letter-spacing: -1px;
       @include desktop {
       }
     }
-  }
-
-  .hover-content {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    transition: 0.5s ease;
-    opacity: 0;
-    background: $color-blue;
-
-    cursor: pointer;
-    p {
-      font-size: 0.8rem;
-      color: $color-white;
-    }
-
-    .details-wrapper {
-      display: flex;
-      justify-content: space-between;
-
-      .sub-title {
-        color: $color-white;
-        font-size: 0.6rem;
-      }
-    }
-
-    .cta-wrapper,
-    .cta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    > * {
-      padding: 1.5rem;
-    }
-  }
-
-  &:hover .hover-content {
-    opacity: 1;
   }
 }

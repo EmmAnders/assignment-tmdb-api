@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+
 import "../scss/components/Heading.scss";
 
 const HeadingLg = (props) => {

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -21,7 +21,7 @@ import Card from "../components/Card";
 import "../scss/pages/Movie.scss";
 
 //Icons
-import plusCircle from "../assets/icons/plus-circle.svg";
+import plus from "../assets/icons/plus.svg";
 import arrowRight from "../assets/icons/arrow-right.svg";
 
 const MoviePage = () => {
@@ -30,24 +30,18 @@ const MoviePage = () => {
   const history = useHistory();
   const [loadMovies, setLoadMovies] = useState(4);
   const [openActor, setOpenActor] = useState(false);
-
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
 
+  //Animation
+
+  //Fetching data
   const movieDetails = useQuery(["movie-details", id], () =>
     getMovieDetails(id)
   );
-
   const movieCast = useQuery(["movie-cast", id], () => getCastByMovieId(id));
-
   const similarMovies = useQuery(["similar-movies", id], () =>
     getSimiliarMovies(id)
   );
-
-  /*   const all = useQueries([
-    { queryKey: ["movie-details", id], queryFn: () => getMovieDetails(id) },
-    { queryKey: ["movie-cast", id], queryFn: () => getCastByMovieId(id) },
-  ]);
- */
 
   const handleClickToActorId = (actorId) => {
     history.push(`/movies/actor/${actorId}`);
@@ -79,22 +73,14 @@ const MoviePage = () => {
           </div>
 
           <div className="overview">
-            <h2>Overview</h2>
             <p>{movieDetails.data.overview}</p>
           </div>
 
-          <div className="movie-specs-container">
-            <div className="specs">
-              <p>Genre: </p>
-              <div class="name">
-                {movieDetails.data.genres.map((genre, i) => (
-                  <p key={i}> {genre.name}</p>
-                ))}
-              </div>
-            </div>
+          <div className="specs">
+            <div>
+              <p>{movieDetails.data.original_title.toUpperCase()}</p>
 
-            <div className="specs">
-              <p> View on: </p>
+              <p>{movieDetails.data.release_date}</p>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -102,65 +88,55 @@ const MoviePage = () => {
               >
                 IMDB
               </a>
+              <p>{movieDetails.data.original_language.toUpperCase()}</p>
             </div>
 
-            <div className="specs">
-              <p>Release date:</p>
-              <p>{movieDetails.data.release_date}</p>
-            </div>
-
-            <div className="specs">
-              <p>Spoken languages:</p>
-              {movieDetails.data.spoken_languages.map((lang, i) => (
-                <p key={i}>{lang.iso_639_1}</p>
+            <div>
+              {movieDetails.data.genres.map((genre, i) => (
+                <p key={i}> {genre.name.toUpperCase()}</p>
               ))}
             </div>
 
-            <div className="specs">
-              <p>Original Language:</p>
-              <p>{movieDetails.data.original_language}</p>
-            </div>
-
-            <div className="specs">
-              <p>Original title:</p>
-              <p>{movieDetails.data.original_title}</p>
-            </div>
-
-            <div onClick={handleOpenActor} className="specs dropdown">
-              <p>Actors</p>
-              <img src={plusCircle} alt="view actors" />
+            <div onClick={handleOpenActor} className="dropdown">
+              <button>
+                <p> Actors </p> <img src={plus} alt="view actors" />
+              </button>
             </div>
           </div>
         </>
       )}
 
       <>
-        {openActor && (
-          <table className="table">
-            <tbody>
-              {movieCast.data &&
-                Object.keys(movieCast.data.cast).map((item, i) => (
-                  <tr key={i}>
-                    {movieCast.data.cast[item].known_for_department ===
-                    "Acting" ? (
-                      <td
-                        onClick={() =>
-                          handleClickToActorId(movieCast.data.cast[item].id)
-                        }
-                      >
-                        <p>
-                          {" "}
-                          {movieCast.data.cast[item].name} as{" "}
-                          <span> {movieCast.data.cast[item].character}</span>
-                        </p>
-                        <img src={arrowRight} alt="view actor" />
-                      </td>
-                    ) : null}
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        )}
+        <div className="movie-actors-container">
+          {openActor && (
+            <table className="table">
+              <tbody>
+                {movieCast.data &&
+                  Object.keys(movieCast.data.cast).map((item, i) => (
+                    <tr key={i}>
+                      {movieCast.data.cast[item].known_for_department ===
+                      "Acting" ? (
+                        <td
+                          onClick={() =>
+                            handleClickToActorId(movieCast.data.cast[item].id)
+                          }
+                        >
+                          <p>
+                            {movieCast.data.cast[item].name} as{" "}
+                            <span> {movieCast.data.cast[item].character}</span>
+                          </p>
+                          <div className="cta-flex">
+                            View profile
+                            <img src={arrowRight} alt="view actor" />
+                          </div>
+                        </td>
+                      ) : null}
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </>
 
       <div className="movies-container">
@@ -178,9 +154,6 @@ const MoviePage = () => {
                         onClick={() => handleClickToMovieId(movie.id)}
                         src={movie.backdrop_path}
                         title={movie.title}
-                        releaseDate={movie.release_date}
-                        voteAverage={movie.vote_average}
-                        genre1={movie.genre_ids.map((id) => id).join("/")}
                       ></Card>
                     </React.Fragment>
                   );

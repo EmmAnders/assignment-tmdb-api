@@ -94,6 +94,16 @@
     grid-gap: calc(2em + 2vh) calc(1.5em + 1vmin);
     grid-auto-flow: row dense;
 
+    img {
+      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+      filter: grayscale(100%);
+
+      &:hover {
+        -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(0%);
+      }
+    }
+
     @include tablet {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }

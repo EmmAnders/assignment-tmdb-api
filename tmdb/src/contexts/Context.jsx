@@ -5,8 +5,9 @@ export const Context = createContext();
 
 const ContextProvider = (props) => {
   const history = useHistory();
-
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleClickToMovieId = (movieId) => {
     history.push(`/movies/${movieId}`);
@@ -16,6 +17,8 @@ const ContextProvider = (props) => {
   const values = {
     handleClickToMovieId,
     baseUrlImg,
+    searchQuery,
+    setSearchQuery,
   };
 
   return <Context.Provider value={values}>{props.children}</Context.Provider>;

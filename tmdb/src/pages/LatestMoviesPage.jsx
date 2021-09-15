@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 
 import { useQuery } from "react-query";
 
@@ -6,13 +6,21 @@ import { useQuery } from "react-query";
 import { getLatestMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
-
 //Components
-import HeadingLg from "../components/HeadingLg";
+import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
 //Styles
 import "../scss/pages/Movies.scss";
+
+//Animation
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== `undefined`) {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.core.globals("ScrollTrigger", ScrollTrigger);
+}
 
 const LatestMoviesPage = () => {
   const { handleClickToMovieId } = useContext(Context);
@@ -22,6 +30,47 @@ const LatestMoviesPage = () => {
     getLatestMovies
   );
 
+  // Text Array for Heading
+  let textArray = [
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+  ];
+
+  // Animation
+  const revealContent = useRef(null);
+  revealContent.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !revealContent.current.includes(el)) {
+      revealContent.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    revealContent.current.forEach((el, index) => {
+      gsap.fromTo(
+        el,
+        { autoAlpha: 0 },
+        {
+          duration: 1,
+          autoAlpha: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top center +=100",
+            toggleActions: "play none none reverse",
+            markers: true,
+          },
+        }
+      );
+    });
+  });
+
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -29,20 +78,16 @@ const LatestMoviesPage = () => {
 
       {data?.results && (
         <section className="movies-page-container">
-          <HeadingLg text="Latest"></HeadingLg>
+          <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <section className="page-content">
             {data.results.map((movie) => (
-              <React.Fragment key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
-                  releaseDate={movie.release_date}
-                  subtitle={"Average Vote"}
-                  voteAverage={movie.vote_average}
-                  genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>
-              </React.Fragment>
+              </div>
             ))}
           </section>
         </section>
