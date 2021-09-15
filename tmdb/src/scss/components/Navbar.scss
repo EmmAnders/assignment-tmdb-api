@@ -1,0 +1,155 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+body.nav-open {
+  overflow: hidden;
+}
+
+nav {
+  width: 100%;
+  text-transform: uppercase;
+
+  &.mb-sm {
+    margin-bottom: 15vh;
+  }
+
+  &.mb-lg {
+    margin-bottom: 15vh;
+
+    @include tablet {
+      margin-bottom: 35vh;
+    }
+
+    @include desktop {
+      margin-bottom: 25vh;
+    }
+
+    @include desktop-lg {
+      margin-bottom: 35vh;
+    }
+
+    @include desktop-xl {
+    }
+  }
+
+  .show-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #262626af;
+    z-index: 120;
+  }
+
+  .overlay.hidden {
+    display: none;
+  }
+
+  .menu {
+    padding: 0.5rem;
+    /*   position: absolute; */
+    /*     top: 5vh; */
+    /* left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%); */
+
+    .menu-button {
+      background: none;
+      text-align: center;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      font-size: 2rem;
+      letter-spacing: -3px;
+      display: flex;
+      align-items: center;
+
+      img {
+        display: inline-block;
+        border-radius: 50%;
+        padding: 1rem;
+        background: radial-gradient(circle, #9198e5 -40%, transparent 70%);
+      }
+    }
+  }
+
+  ul {
+    background: $color-white;
+    z-index: 200;
+    max-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+    .menu-item.genre {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        color: $color-black;
+      }
+    }
+
+    .close-btn-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li {
+      list-style: none;
+      font-size: 1.3rem;
+      color: $color-black;
+      border-bottom: 1px solid $color-black;
+      padding: 10px 10px;
+
+      @include tablet {
+        padding: 20px 20px;
+        font-size: 2rem;
+      }
+
+      @include desktop {
+        padding: 20px 20px;
+      }
+
+      a {
+        cursor: pointer;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        text-decoration: none;
+
+        p {
+          color: $color-black;
+        }
+      }
+    }
+  }
+
+  .genre-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 0px;
+
+    li {
+      padding: 0px 23px;
+      margin-bottom: 0.5rem;
+
+      border: none;
+
+      a {
+        color: $color-black;
+        font-size: 1rem;
+      }
+    }
+
+    @include tablet {
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 40%;
+    }
+  }
+}

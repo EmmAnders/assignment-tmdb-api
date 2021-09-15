@@ -1,0 +1,24 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+.button {
+  outline: none;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: -3px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #9198e5 -40%, transparent 70%);
+  transition: transform 0.4s;
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @include tablet {
+    font-size: 2rem;
+  }
+}

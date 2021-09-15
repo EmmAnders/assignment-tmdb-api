@@ -1,0 +1,65 @@
+@import "./scss/Variables.scss";
+@import "./scss/Mixins.scss";
+
+body {
+  background-color: $color-white;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+p,
+h1,
+h2,
+a,
+button,
+svg {
+  color: $color-black;
+  line-height: 1.4;
+}
+
+.site-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $color-white;
+  padding: 0.5rem;
+
+  @include tablet {
+    padding: 19px 23px;
+  }
+
+  /*   @include desktop {
+    margin: 1.5rem;
+  } */
+}

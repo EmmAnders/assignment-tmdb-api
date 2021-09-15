@@ -1,0 +1,186 @@
+@import "../Variables.scss";
+@import "../Mixins.scss";
+
+.movie-page-container {
+  @include desktop {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 30% 40%;
+
+    grid-template-areas:
+      "title title title"
+      "specs overview poster"
+      "actors actors actors "
+      "subheading subheading subheading"
+      "movies movies movies"
+      "loadMore loadMore loadMore";
+  }
+
+  .poster {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include desktop {
+      grid-area: poster;
+      display: inline-block;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .title {
+    @include desktop {
+      grid-area: title;
+    }
+  }
+
+  .specs {
+    p,
+    a {
+      padding-bottom: 0.5rem;
+      font-style: italic;
+    }
+    @include desktop {
+      grid-area: specs;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      p,
+      a {
+        padding: 0px;
+      }
+    }
+
+    .dropdown {
+      button {
+        display: flex;
+        align-items: center;
+        outline: none;
+        background: none;
+        border: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        letter-spacing: -3px;
+        font-size: 1.3rem;
+        padding: 0px;
+        margin-top: 2.5rem;
+
+        @include desktop {
+          margin-top: 0rem;
+          font-size: 2rem;
+        }
+        p {
+          font-style: normal;
+        }
+
+        img {
+          display: inline-block;
+          border-radius: 50%;
+          padding: 1rem;
+          background: radial-gradient(circle, $color-red -40%, transparent 70%);
+        }
+      }
+    }
+  }
+
+  .overview {
+    padding: 4vh 0rem;
+    font-size: 1rem;
+
+    @include desktop {
+      grid-area: overview;
+      padding: 0rem;
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .movie-actors-container {
+    @include desktop {
+      grid-area: actors;
+      margin-top: 10vh;
+    }
+
+    .table {
+      width: 100%;
+      text-transform: uppercase;
+
+      td {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid $color-grey;
+        padding: 0.8rem 0rem;
+        font-size: 0.7rem;
+
+        .cta-flex {
+          display: flex;
+          align-items: center;
+          img {
+            height: 10px;
+          }
+        }
+
+        @include desktop {
+        }
+
+        span {
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+  .movies-container {
+    @include desktop {
+      grid-area: subheading;
+      margin-top: 10vh;
+    }
+
+    .movies {
+      > * {
+        margin-bottom: 1.5rem;
+      }
+
+      @include tablet {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: calc(2em + 2vh) calc(1.5em + 1vmin);
+        grid-auto-flow: row dense;
+      }
+
+      @include desktop {
+        grid-area: movies;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        img {
+          object-fit: cover;
+          -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+          filter: grayscale(100%);
+
+          &:hover {
+            -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(0%);
+          }
+        }
+
+        > * {
+          margin-bottom: 0rem;
+        }
+      }
+    }
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0vh;
+    width: 100%;
+  }
+}
