@@ -7,10 +7,12 @@ const ContextProvider = (props) => {
   const history = useHistory();
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
 
+  const [openSearch, setOpenSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleClickToMovieId = (movieId) => {
     history.push(`/movies/${movieId}`);
+    history.go();
     window.scrollTo(0, 0);
   };
 
@@ -19,6 +21,8 @@ const ContextProvider = (props) => {
     baseUrlImg,
     searchQuery,
     setSearchQuery,
+    openSearch,
+    setOpenSearch,
   };
 
   return <Context.Provider value={values}>{props.children}</Context.Provider>;

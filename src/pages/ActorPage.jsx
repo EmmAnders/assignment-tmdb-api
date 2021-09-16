@@ -8,7 +8,6 @@ import { getMoviesByActorId, getActorProfileById } from "../services/API";
 
 //Animations
 import Marquee from "react-fast-marquee";
-import FadeInAnimation from "../animations/FadeInAnimation";
 
 //Components
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
@@ -54,7 +53,6 @@ const ActorPage = () => {
       ]);
     }
   }, [profile.data]);
-
 
   return (
     <section className="actor-page-container">

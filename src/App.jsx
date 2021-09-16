@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import { Context } from "./contexts/Context";
 import { search } from "./services/API";
@@ -19,7 +24,7 @@ import Card from "./components/Card";
 import "./App.scss";
 
 function App() {
-  const { searchQuery } = useContext(Context);
+  const { searchQuery, openSearch, handleClickToMovieId } = useContext(Context);
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ["search-movies", searchQuery],
@@ -32,10 +37,13 @@ function App() {
       keepPreviousData: true,
     }
   );
+
   return (
     <>
-      <Navbar />
-      <Search />
+      <header>
+        <Navbar />
+        {openSearch && <Search />}
+      </header>
       {!searchQuery ? (
         <main className="site-container">
           <Switch>
