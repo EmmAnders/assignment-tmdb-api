@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import { motion } from "framer-motion";
 
 //Context, API
 import { Context } from "../contexts/Context";
@@ -8,7 +9,6 @@ import { getMoviesByActorId, getActorProfileById } from "../services/API";
 
 //Animations
 import Marquee from "react-fast-marquee";
-import FadeInAnimation from "../animations/FadeInAnimation";
 
 //Components
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
@@ -55,9 +55,13 @@ const ActorPage = () => {
     }
   }, [profile.data]);
 
-
   return (
-    <section className="actor-page-container">
+    <motion.section
+      className="actor-page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5, duration: 0.5 }}
+    >
       {movies.isError || (profile.isError && <div>{error.message}</div>)}
       {movies.isLoading || (profile.isLoading && <div>Loading...</div>)}
 
@@ -158,7 +162,7 @@ const ActorPage = () => {
           )}
         </>
       )}
-    </section>
+    </motion.section>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
+import { motion } from "framer-motion";
 
 //Context, API
 import {
@@ -57,7 +58,12 @@ const MoviePage = () => {
   };
 
   return (
-    <section className="movie-page-container">
+    <motion.section
+      className="movie-page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5, duration: 0.5 }}
+    >
       {movieDetails.data && (
         <>
           <HeadingLg
@@ -172,7 +178,7 @@ const MoviePage = () => {
           </>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

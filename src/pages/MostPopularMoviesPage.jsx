@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 
 //Context. API
@@ -13,7 +13,7 @@ import Card from "../components/Card";
 import "../scss/pages/Movies.scss";
 
 const MostPopularMoviesPage = () => {
-  const { handleClickToMovieId } = useContext(Context);
+  const { handleClickToMovieId, staggerElements } = useContext(Context);
 
   const { data, error, isError, isLoading } = useQuery(
     "popular-movies",
@@ -32,6 +32,22 @@ const MostPopularMoviesPage = () => {
     "Popular",
   ];
 
+  // Animation
+  const revealContent = useRef(null);
+  revealContent.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !revealContent.current.includes(el)) {
+      revealContent.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    revealContent.current.forEach((el, index) => {
+      staggerElements(el);
+    });
+  });
+
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -42,7 +58,7 @@ const MostPopularMoviesPage = () => {
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <section className="page-content">
             {data.results.map((movie) => (
-              <React.Fragment key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -51,7 +67,7 @@ const MostPopularMoviesPage = () => {
                   subtitle={"Popularity"}
                   voteAverage={movie.popularity}
                 ></Card>
-              </React.Fragment>
+              </div>
             ))}
           </section>
         </section>

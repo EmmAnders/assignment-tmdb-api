@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
+import { gsap } from "gsap";
 
 //Context, API
 import { getTopRatedMovies } from "../services/API";
@@ -13,7 +14,7 @@ import Card from "../components/Card";
 import "../scss/pages/Movies.scss";
 
 const TopRatedMoviesPage = () => {
-  const { handleClickToMovieId } = useContext(Context);
+  const { handleClickToMovieId, staggerElements } = useContext(Context);
   const { data, error, isError, isLoading } = useQuery(
     "top-rated-movies",
     getTopRatedMovies
@@ -33,6 +34,22 @@ const TopRatedMoviesPage = () => {
     "top rated",
   ];
 
+  // Animation
+  const revealContent = useRef(null);
+  revealContent.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !revealContent.current.includes(el)) {
+      revealContent.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    revealContent.current.forEach((el, index) => {
+      staggerElements(el);
+    });
+  });
+
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -42,7 +59,7 @@ const TopRatedMoviesPage = () => {
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <section className="page-content">
             {data.results.map((movie, i) => (
-              <React.Fragment key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -52,7 +69,7 @@ const TopRatedMoviesPage = () => {
                   voteAverage={movie.vote_average}
                   genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>
-              </React.Fragment>
+              </div>
             ))}
           </section>
         </section>

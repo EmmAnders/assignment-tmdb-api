@@ -3,11 +3,10 @@ import { Context } from "../contexts/Context";
 
 //Styles
 import "../scss/components/Search.scss";
+import "../scss/components/Navbar.scss";
 
 const Search = () => {
-  const { searchQuery, setSearchQuery } = useContext(
-    Context
-  );
+  const { searchQuery, setSearchQuery } = useContext(Context);
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -15,18 +14,17 @@ const Search = () => {
   };
 
   return (
-    <form /*  onSubmit={search} */>
+    <div className="search-input">
       <label htmlFor="header-search"></label>
       <input
         size="100"
-        className="search-input"
         type="text"
-        placeholder="i.e. American Pie"
+        placeholder="type your search"
         name="query"
         onChange={handleSearchChange}
         value={searchQuery}
       />
-    </form>
+    </div>
   );
 };
 

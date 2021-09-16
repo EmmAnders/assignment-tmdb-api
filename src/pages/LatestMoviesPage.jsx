@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useEffect } from "react";
-
 import { useQuery } from "react-query";
 
 //Context, API
@@ -23,7 +22,7 @@ if (typeof window !== `undefined`) {
 }
 
 const LatestMoviesPage = () => {
-  const { handleClickToMovieId } = useContext(Context);
+  const { handleClickToMovieId, staggerElements } = useContext(Context);
 
   const { data, error, isError, isLoading } = useQuery(
     "latest-movies",
@@ -53,20 +52,7 @@ const LatestMoviesPage = () => {
 
   useEffect(() => {
     revealContent.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        { autoAlpha: 0 },
-        {
-          duration: 1,
-          autoAlpha: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top center +=100",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      staggerElements(el);
     });
   });
 

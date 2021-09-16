@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -17,7 +17,7 @@ import Pagination from "../components/Pagination";
 import "../scss/pages/Movies.scss";
 
 const GenrePage = () => {
-  const { handleClickToMovieId } = useContext(Context);
+  const { handleClickToMovieId, staggerElements } = useContext(Context);
   const { id, name } = useParams();
   const history = useHistory();
 
@@ -44,6 +44,22 @@ const GenrePage = () => {
     });
   }, [id]);
 
+  // Animation
+  const revealContent = useRef(null);
+  revealContent.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !revealContent.current.includes(el)) {
+      revealContent.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    revealContent.current.forEach((el, index) => {
+      staggerElements(el);
+    });
+  });
+
   const textArray = [name, name, name, name, name, name];
 
   return (
@@ -55,7 +71,7 @@ const GenrePage = () => {
         <section className="movies-page-container">
           <section className="page-content">
             {data.results.map((movie, i) => (
-              <React.Fragment key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -63,7 +79,7 @@ const GenrePage = () => {
                   releaseDate={movie.release_date}
                   voteAverage={movie.vote_average}
                 ></Card>
-              </React.Fragment>
+              </div>
             ))}
           </section>
 
