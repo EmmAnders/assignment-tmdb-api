@@ -45,12 +45,11 @@ const Navbar = () => {
       ></div>
 
       <div className="menu">
-        <button className="menu-button" onClick={handleMenu}>
-          <span>MOVIES</span>
-        </button>
-
         <button onClick={handleSearchbar} className="menu-button">
           SEARCH
+        </button>
+        <button className="menu-button" onClick={handleMenu}>
+          <span>MOVIES</span>
         </button>
       </div>
 
@@ -62,7 +61,7 @@ const Navbar = () => {
               <img src={arrow} alt="arrow-right" />
             </NavLink>
           </li>
-          
+
           <li className="menu-item genre" onClick={handleGenreOpenDropdown}>
             <p>Movies By Genre</p>
             <img src={plus} alt="plus" />

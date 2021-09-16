@@ -47,6 +47,7 @@ header {
 
     .menu {
       display: flex;
+      justify-content: space-between;
       .menu-button {
         background: none;
         text-align: center;
