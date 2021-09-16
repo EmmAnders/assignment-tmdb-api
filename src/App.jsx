@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Context } from "./contexts/Context";
 import { search } from "./services/API";

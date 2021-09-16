@@ -44,7 +44,7 @@ const Navbar = () => {
         className={openMenu ? "show-overlay" : ""}
       ></div>
 
-<div className="menu">
+      <div className="menu">
         <button className="menu-button" onClick={handleMenu}>
           <span>MOVIES</span>
         </button>
@@ -58,7 +58,7 @@ const Navbar = () => {
         <ul>
           <li onClick={handleMenu}>
             <NavLink to="/">
-              <p> Home</p>
+              <p>Home</p>
               <img src={arrow} alt="arrow-right" />
             </NavLink>
           </li>
