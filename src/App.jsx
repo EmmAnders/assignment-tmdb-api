@@ -17,7 +17,7 @@ import Search from "./components/Search";
 import Card from "./components/Card";
 
 import "./App.scss";
-import "./scss/pages/movies";
+import "./scss/pages/movies.scss";
 
 function App() {
   const { searchQuery, openSearch, handleClickToMovieId } = useContext(Context);
