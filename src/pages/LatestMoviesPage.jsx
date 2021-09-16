@@ -64,7 +64,6 @@ const LatestMoviesPage = () => {
             trigger: el,
             start: "top center +=100",
             toggleActions: "play none none reverse",
-            markers: true,
           },
         }
       );

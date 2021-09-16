@@ -11,11 +11,17 @@ import Card from "../components/Card";
 import "../scss/pages/Movies.scss";
 
 const Home = () => {
-  const { searchQuery, setSearchQuery } = useContext(Context);
+  const { searchQuery, handleClickToMovieId } = useContext(
+    Context
+  );
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ["search-movies", searchQuery],
-    () => search(searchQuery),
+    () => {
+      if (searchQuery) {
+        return search(searchQuery);
+      }
+    },
     {
       keepPreviousData: true,
     }
@@ -23,8 +29,8 @@ const Home = () => {
 
   return (
     <div>
-      {/*       {isLoading && <p>Loading movies...</p>}
-      {isError && <p>({error})</p>} */}
+      {isLoading && <p>Loading movies...</p>}
+      {isError && <p>{error.message}</p>}
 
       <Search />
       <section className="movies-page-container">
@@ -33,7 +39,7 @@ const Home = () => {
             ? data.results.map((movie) => (
                 <React.Fragment key={movie.id}>
                   <Card
-                    /* onClick={() => handleClickToMovieId(movie.id)} */
+                    onClick={() => handleClickToMovieId(movie.id)}
                     src={movie.poster_path}
                     title={movie.title}
                   ></Card>
