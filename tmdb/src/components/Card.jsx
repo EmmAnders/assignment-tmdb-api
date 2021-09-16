@@ -8,7 +8,7 @@ const Card = (props) => {
   return (
     <div ref={props.ref} onClick={props.onClick} className="card">
       <div className="card-img">
-        <img src={baseUrlImg + props.src} alt={props.alt} />
+        <img src={props.src ? baseUrlImg + props.src : null} alt={props.alt} />
       </div>
       <div className="card-title">
         <h2>{props.title}</h2>

@@ -5,7 +5,9 @@ import { Context } from "../contexts/Context";
 import "../scss/components/Search.scss";
 
 const Search = () => {
-  const { searchQuery, setSearchQuery } = useContext(Context);
+  const { searchQuery, setSearchQuery } = useContext(
+    Context
+  );
 
   const handleSearchChange = (e) => {
     e.preventDefault();

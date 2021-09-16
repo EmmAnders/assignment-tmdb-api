@@ -68,7 +68,7 @@ export const getActorProfileById = async (id) => {
   );
 };
 
-export const search = async (searchQuery) => {
+export const search = async (searchQuery = null) => {
   return get(
     `search/movie?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&page=1&query=${searchQuery}`
   );

@@ -10,7 +10,15 @@ form {
     background: transparent;
     border: none;
     border-bottom: 1px solid $color-black;
-    font-size: 1.5rem;
+    font-size: 0.4rem;
+    
+    @include tablet {
+      font-size: 0.8rem;
+    }
+
+    @include desktop {
+      font-size: 1rem;
+    }
   }
 
   input[type="text"]:focus {

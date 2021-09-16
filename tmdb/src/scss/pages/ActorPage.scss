@@ -95,11 +95,11 @@
     grid-auto-flow: row dense;
 
     img {
-      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+      -webkit-filter: grayscale(100%);
       filter: grayscale(100%);
 
       &:hover {
-        -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+        -webkit-filter: grayscale(0%);
         filter: grayscale(0%);
       }
     }
@@ -107,8 +107,13 @@
     @include tablet {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-    @include desktop {
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+    @include desktop-lg {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    @include desktop-xl {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
   }
 
