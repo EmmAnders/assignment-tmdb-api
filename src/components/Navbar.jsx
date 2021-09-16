@@ -39,14 +39,12 @@ const Navbar = () => {
           className={openMenu ? "show-overlay" : ""}
         ></div>
 
-        <FadeInAnimation direction="down">
-          <div className="menu">
-            <button className="menu-button" onClick={handleMenu}>
-              <span>MOVIES</span>
-              <img src={arrow} alt="arrow-right" />
-            </button>
-          </div>
-        </FadeInAnimation>
+        <div className="menu">
+          <button className="menu-button" onClick={handleMenu}>
+            <span>MOVIES</span>
+            <img src={arrow} alt="arrow-right" />
+          </button>
+        </div>
 
         {openMenu && (
           <ul>

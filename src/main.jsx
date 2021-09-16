@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import ContextProvider from "./contexts/Context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -14,7 +14,9 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Router>
-        <App />
+        <ContextProvider>
+          <App />
+        </ContextProvider>
       </Router>
     </QueryClientProvider>
   </React.StrictMode>,
