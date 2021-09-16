@@ -11,9 +11,7 @@ import Card from "../components/Card";
 import "../scss/pages/Movies.scss";
 
 const Home = () => {
-  const { searchQuery, handleClickToMovieId } = useContext(
-    Context
-  );
+  const { searchQuery, handleClickToMovieId } = useContext(Context);
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ["search-movies", searchQuery],
@@ -21,6 +19,7 @@ const Home = () => {
       if (searchQuery) {
         return search(searchQuery);
       }
+      return;
     },
     {
       keepPreviousData: true,
