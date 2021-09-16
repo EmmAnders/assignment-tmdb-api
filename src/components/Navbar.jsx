@@ -62,6 +62,7 @@ const Navbar = () => {
               <img src={arrow} alt="arrow-right" />
             </NavLink>
           </li>
+          
           <li className="menu-item genre" onClick={handleGenreOpenDropdown}>
             <p>Movies By Genre</p>
             <img src={plus} alt="plus" />
