@@ -2,8 +2,7 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import { Context } from "../contexts/Context";
 
 //Styles
-/* import "../scss/components/SearchInput.scss"; */
-import "../scss/components/Navbar.scss";
+import "../scss/components/SearchInput.scss";
 
 const Search = () => {
   const { searchQuery, setSearchQuery } = useContext(Context);
@@ -14,12 +13,12 @@ const Search = () => {
   };
 
   return (
-    <div className="search-input">
-      <label htmlFor="header-search"></label>
+    <div className="field">
+      <label htmlFor="search"></label>
       <input
         size="100"
         type="text"
-        placeholder="type your search"
+        placeholder="Type your search"
         name="query"
         onChange={handleSearchChange}
         value={searchQuery}
