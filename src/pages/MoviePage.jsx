@@ -49,7 +49,7 @@ const MoviePage = () => {
   };
 
   const handleLoadMore = () => {
-    setLoadMovies(loadMovies + 4);
+    setLoadMovies(loadMovies + 5);
   };
 
   const handleOpenActor = () => {

@@ -14,6 +14,8 @@ import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
 
+//Animation
+import skewElements from "../components/animation/SkewElements";
 
 const GenrePage = () => {
   const { handleClickToMovieId } = useContext(Context);
@@ -31,6 +33,15 @@ const GenrePage = () => {
     }
   );
 
+  const elements = useRef(null);
+  elements.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !elements.current.includes(el)) {
+      elements.current.push(el);
+    }
+  };
+
   useEffect(() => {
     setParams({ ...params, page });
   }, [page]);
@@ -43,6 +54,10 @@ const GenrePage = () => {
     });
   }, [id]);
 
+  useEffect(() => {
+    skewElements(elements.current);
+  });
+
   const textArray = [name, name, name, name, name, name];
 
   return (
@@ -54,7 +69,7 @@ const GenrePage = () => {
         <>
           <PageGridModule>
             {data.results.map((movie, i) => (
-              <div key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}

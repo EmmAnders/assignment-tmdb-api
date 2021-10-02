@@ -11,8 +11,11 @@ import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
-const TopRatedMoviesPage = () => {
-  const { handleClickToMovieId, staggerElements } = useContext(Context);
+//Animation
+import skewElements from "../components/animation/SkewElements";
+
+const MoviesTopRated = () => {
+  const { handleClickToMovieId } = useContext(Context);
   const { data, error, isError, isLoading } = useQuery(
     "top-rated-movies",
     getTopRatedMovies
@@ -32,6 +35,19 @@ const TopRatedMoviesPage = () => {
     "top rated",
   ];
 
+  const elements = useRef(null);
+  elements.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !elements.current.includes(el)) {
+      elements.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    skewElements(elements.current);
+  });
+
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -41,7 +57,7 @@ const TopRatedMoviesPage = () => {
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <PageGridModule>
             {data.results.map((movie, i) => (
-              <div key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -56,4 +72,4 @@ const TopRatedMoviesPage = () => {
   );
 };
 
-export default TopRatedMoviesPage;
+export default MoviesTopRated;

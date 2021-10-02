@@ -1,52 +1,67 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 
-//Context. API
+import skewElements from "../components/animation/SkewElements";
+
+//Context, API
+import { getLatestMovies } from "../services/API";
 import { Context } from "../contexts/Context";
-import { getMostPopularMovies } from "../services/API";
 
 //Components
 import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
-const MostPopularMoviesPage = () => {
-  const { handleClickToMovieId, staggerElements } = useContext(Context);
+//Styles
+import "../scss/pages/Movies.scss";
+
+const MoviesLatest = () => {
+  const { handleClickToMovieId } = useContext(Context);
 
   const { data, error, isError, isLoading } = useQuery(
-    "popular-movies",
-    getMostPopularMovies
+    "latest-movies",
+    getLatestMovies
   );
 
+  // Text Array for Heading
   let textArray = [
-    " Popular",
-    "Popular",
-    " Popular",
-    "Popular",
-    " Popular",
-    " Popular",
-    " Popular",
-    " Popular",
-    "Popular",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
+    "latest",
   ];
+
+  const elements = useRef(null);
+  elements.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !elements.current.includes(el)) {
+      elements.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    skewElements(elements.current);
+  });
 
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
+
       {data?.results && (
         <>
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <PageGridModule>
             {data.results.map((movie) => (
-              <div key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
-                  releaseDate={movie.release_date}
-                  subtitle={"Popularity"}
-                  voteAverage={movie.popularity}
                 ></Card>
               </div>
             ))}
@@ -57,4 +72,4 @@ const MostPopularMoviesPage = () => {
   );
 };
 
-export default MostPopularMoviesPage;
+export default MoviesLatest;

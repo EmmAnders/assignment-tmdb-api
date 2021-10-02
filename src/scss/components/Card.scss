@@ -13,7 +13,7 @@
       width: 100%;
       height: 100%;
 
-      @include desktop {
+      /*     @include desktop {
         transition: transform 0.4s;
       }
 
@@ -21,6 +21,7 @@
         transform: scale(1.1);
         transform-origin: 50% 50%;
       }
+    } */
     }
   }
 

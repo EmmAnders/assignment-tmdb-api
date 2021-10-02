@@ -1,61 +1,68 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 
-//Context, API
-import { getLatestMovies } from "../services/API";
+//Context. API
 import { Context } from "../contexts/Context";
+import { getMostPopularMovies } from "../services/API";
 
 //Components
 import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
-//Styles
-import "../scss/pages/Movies.scss";
-
 //Animation
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import skewElements from "../components/animation/SkewElements";
 
-if (typeof window !== `undefined`) {
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.core.globals("ScrollTrigger", ScrollTrigger);
-}
-
-const LatestMoviesPage = () => {
-  const { handleClickToMovieId, staggerElements } = useContext(Context);
+const MoviesPopular = () => {
+  const { handleClickToMovieId } = useContext(Context);
 
   const { data, error, isError, isLoading } = useQuery(
-    "latest-movies",
-    getLatestMovies
+    "popular-movies",
+    getMostPopularMovies
   );
 
-  // Text Array for Heading
   let textArray = [
-    "latest",
-    "latest",
-    "latest",
-    "latest",
-    "latest",
-    "latest",
-    "latest",
+    " Popular",
+    "Popular",
+    " Popular",
+    "Popular",
+    " Popular",
+    " Popular",
+    " Popular",
+    " Popular",
+    "Popular",
   ];
+
+  const elements = useRef(null);
+  elements.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !elements.current.includes(el)) {
+      elements.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    skewElements(elements.current);
+  });
 
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
-
       {data?.results && (
         <>
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
           <PageGridModule>
             {data.results.map((movie) => (
-              <div key={movie.id}>
+              <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
+                  releaseDate={movie.release_date}
+                  subtitle={"Popularity"}
+                  voteAverage={movie.popularity}
                 ></Card>
               </div>
             ))}
@@ -66,4 +73,4 @@ const LatestMoviesPage = () => {
   );
 };
 
-export default LatestMoviesPage;
+export default MoviesPopular;

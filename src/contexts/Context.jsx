@@ -25,22 +25,15 @@ const ContextProvider = (props) => {
     window.scrollTo(0, 0);
   };
 
-  // Gsap animation - Stagger elements
-  const staggerElements = (el) => {
-    gsap.fromTo(
-      el,
-      { autoAlpha: 0 },
-      {
-        duration: 1,
-        autoAlpha: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top center +=100",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+  //Create array of refs
+
+  const addToRefs = (el, elArray) => {
+    if (!el && elArray) {
+      return;
+    }
+    if (el && !elArray.current.includes(el)) {
+      elArray.current.push(el);
+    }
   };
 
   const values = {
@@ -50,7 +43,7 @@ const ContextProvider = (props) => {
     setSearchQuery,
     openSearch,
     setOpenSearch,
-    staggerElements,
+    addToRefs,
   };
 
   return <Context.Provider value={values}>{props.children}</Context.Provider>;
