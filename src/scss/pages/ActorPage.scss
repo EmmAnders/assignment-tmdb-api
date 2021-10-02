@@ -22,6 +22,10 @@
         align-items: start;
       }
 
+      td {
+        border-bottom: $color-black;
+      }
+
       .image-container {
         display: grid;
         grid-template-columns: repeat(6, 1fr);

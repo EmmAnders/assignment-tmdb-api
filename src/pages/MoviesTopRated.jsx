@@ -7,14 +7,15 @@ import { getTopRatedMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
 //Components
+import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
-//Styles
-import "../scss/pages/Movies.scss";
+//Animation
+import skewElements from "../components/animation/SkewElements";
 
-const TopRatedMoviesPage = () => {
-  const { handleClickToMovieId, staggerElements } = useContext(Context);
+const MoviesTopRated = () => {
+  const { handleClickToMovieId } = useContext(Context);
   const { data, error, isError, isLoading } = useQuery(
     "top-rated-movies",
     getTopRatedMovies
@@ -34,20 +35,17 @@ const TopRatedMoviesPage = () => {
     "top rated",
   ];
 
-  // Animation
-  const revealContent = useRef(null);
-  revealContent.current = [];
+  const elements = useRef(null);
+  elements.current = [];
 
   const addToRefs = (el) => {
-    if (el && !revealContent.current.includes(el)) {
-      revealContent.current.push(el);
+    if (el && !elements.current.includes(el)) {
+      elements.current.push(el);
     }
   };
 
   useEffect(() => {
-    revealContent.current.forEach((el, index) => {
-      staggerElements(el);
-    });
+    skewElements(elements.current);
   });
 
   return (
@@ -55,27 +53,23 @@ const TopRatedMoviesPage = () => {
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
       {data?.results && (
-        <section className="movies-page-container">
+        <>
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
-          <section className="page-content">
+          <PageGridModule>
             {data.results.map((movie, i) => (
               <div ref={addToRefs} key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
-                  releaseDate={movie.release_date}
-                  subtitle={"Average Vote"}
-                  voteAverage={movie.vote_average}
-                  genre1={movie.genre_ids.map((id) => id).join("/")}
                 ></Card>
               </div>
             ))}
-          </section>
-        </section>
+          </PageGridModule>
+        </>
       )}
     </>
   );
 };
 
-export default TopRatedMoviesPage;
+export default MoviesTopRated;

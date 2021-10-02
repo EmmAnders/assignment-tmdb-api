@@ -7,12 +7,12 @@ import { useQuery } from "react-query";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import TopRatedMoviesPage from "./pages/TopRatedMoviesPage.jsx";
-import MostPopularMoviesPage from "./pages/MostPopularMoviesPage.jsx";
+import MoviesTopRated from "./pages/MoviesTopRated.jsx";
+import MoviesPopular from "./pages/MoviesPopular.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
-import LatestMoviesPage from "./pages/LatestMoviesPage";
+import MoviesLatest from "./pages/MoviesLatest";
 import Search from "./components/Search";
 import Card from "./components/Card";
 
@@ -47,15 +47,15 @@ function App() {
             </Route>
 
             <Route exact path="/movies/latest">
-              <LatestMoviesPage />
+              <MoviesLatest />
             </Route>
 
             <Route exact path="/movies/top-rated">
-              <TopRatedMoviesPage />
+              <MoviesTopRated />
             </Route>
 
             <Route exact path="/movies/most-popular">
-              <MostPopularMoviesPage />
+              <MoviesPopular />
             </Route>
 
             <Route exact path="/movies/genre/:name/:id">
