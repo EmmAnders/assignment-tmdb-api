@@ -25,17 +25,6 @@ const ContextProvider = (props) => {
     window.scrollTo(0, 0);
   };
 
-  //Create array of refs
-
-  const addToRefs = (el, elArray) => {
-    if (!el && elArray) {
-      return;
-    }
-    if (el && !elArray.current.includes(el)) {
-      elArray.current.push(el);
-    }
-  };
-
   const values = {
     handleClickToMovieId,
     baseUrlImg,
@@ -43,7 +32,6 @@ const ContextProvider = (props) => {
     setSearchQuery,
     openSearch,
     setOpenSearch,
-    addToRefs,
   };
 
   return <Context.Provider value={values}>{props.children}</Context.Provider>;

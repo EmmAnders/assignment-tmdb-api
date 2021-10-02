@@ -45,7 +45,7 @@ const MoviesLatest = () => {
 
   useEffect(() => {
     skewElements(elements.current);
-  });
+  }, [elements.current]);
 
   return (
     <>

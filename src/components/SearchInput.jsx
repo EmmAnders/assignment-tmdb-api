@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import { Context } from "../contexts/Context";
 
 //Styles
-import "../scss/components/Search.scss";
+/* import "../scss/components/SearchInput.scss"; */
 import "../scss/components/Navbar.scss";
 
 const Search = () => {

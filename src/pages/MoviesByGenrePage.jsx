@@ -56,7 +56,7 @@ const GenrePage = () => {
 
   useEffect(() => {
     skewElements(elements.current);
-  });
+  }, [elements.current]);
 
   const textArray = [name, name, name, name, name, name];
 

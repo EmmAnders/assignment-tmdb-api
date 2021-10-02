@@ -2,18 +2,17 @@ import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Context } from "./contexts/Context";
-import { search } from "./services/API";
-import { useQuery } from "react-query";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Search from "./pages/Search";
 import MoviesTopRated from "./pages/MoviesTopRated.jsx";
 import MoviesPopular from "./pages/MoviesPopular.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
 import MoviesLatest from "./pages/MoviesLatest";
-import Search from "./components/Search";
+import SearchInput from "./components/SearchInput";
 import Card from "./components/Card";
 
 import "./App.scss";
@@ -21,23 +20,11 @@ import "./App.scss";
 function App() {
   const { searchQuery, openSearch, handleClickToMovieId } = useContext(Context);
 
-  const { isLoading, isError, error, data, isPreviousData } = useQuery(
-    ["search-movies", searchQuery],
-    () => {
-      if (searchQuery) {
-        return search(searchQuery);
-      }
-    },
-    {
-      keepPreviousData: true,
-    }
-  );
-
   return (
     <>
       <header>
         <Navbar />
-        {openSearch && <Search />}
+        {openSearch && <SearchInput />}
       </header>
       {!searchQuery ? (
         <main className="site-container">
@@ -72,21 +59,7 @@ function App() {
           </Switch>
         </main>
       ) : (
-        <section className="movies-page-container">
-          <section className="page-content">
-            {data?.results.length > 0
-              ? data.results.map((movie) => (
-                  <React.Fragment key={movie.id}>
-                    <Card
-                      onClick={() => handleClickToMovieId(movie.id)}
-                      src={movie.poster_path}
-                      title={movie.title}
-                    ></Card>
-                  </React.Fragment>
-                ))
-              : null}
-          </section>
-        </section>
+        <Search />
       )}
     </>
   );

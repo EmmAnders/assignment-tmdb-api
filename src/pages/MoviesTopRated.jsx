@@ -46,7 +46,7 @@ const MoviesTopRated = () => {
 
   useEffect(() => {
     skewElements(elements.current);
-  });
+  }, [elements.current]);
 
   return (
     <>

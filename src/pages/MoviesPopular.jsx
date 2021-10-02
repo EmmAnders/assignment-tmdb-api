@@ -44,7 +44,7 @@ const MoviesPopular = () => {
 
   useEffect(() => {
     skewElements(elements.current);
-  });
+  }, [elements.current]);
 
   return (
     <>
@@ -60,9 +60,6 @@ const MoviesPopular = () => {
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
                   title={movie.title}
-                  releaseDate={movie.release_date}
-                  subtitle={"Popularity"}
-                  voteAverage={movie.popularity}
                 ></Card>
               </div>
             ))}
