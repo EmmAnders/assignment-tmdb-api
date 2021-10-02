@@ -13,6 +13,7 @@ import {
 import { Context } from "../contexts/Context";
 
 //Components
+import PageGridModule from "../components/modules/PageGridModule";
 import HeadingLg from "../components/HeadingLg";
 import HeadingSm from "../components/HeadingSm";
 import Button from "../components/Button";
@@ -32,8 +33,6 @@ const MoviePage = () => {
   const [loadMovies, setLoadMovies] = useState(4);
   const [openActor, setOpenActor] = useState(false);
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
-
-  //Animation
 
   //Fetching data
   const movieDetails = useQuery(["movie-details", id], () =>
@@ -149,7 +148,7 @@ const MoviePage = () => {
         <HeadingSm text="You might also like"></HeadingSm>
         {similarMovies?.data && (
           <>
-            <div className="movies">
+            <PageGridModule>
               {similarMovies.data.results.map((movie, i) => {
                 if (i === loadMovies) {
                   return null;
@@ -165,7 +164,7 @@ const MoviePage = () => {
                   );
                 }
               })}
-            </div>
+            </PageGridModule>
             {loadMovies < similarMovies.data.results.length ? (
               <Button
                 className="btn-wrapper"

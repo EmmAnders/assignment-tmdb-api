@@ -30,6 +30,7 @@ th,
 td {
   margin: 0;
   padding: 0;
+  color: $color-lavender;
 }
 html,
 body {
@@ -37,12 +38,10 @@ body {
   padding: 0;
 }
 
-
 p,
 h1,
 h2,
 a,
-button,
 svg {
   color: $color-black;
   line-height: 1.4;
@@ -52,14 +51,10 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: $color-white;
+
   padding: 0.5rem;
 
   @include tablet {
     padding: 19px 23px;
   }
-
-  /*   @include desktop {
-    margin: 1.5rem;
-  } */
 }

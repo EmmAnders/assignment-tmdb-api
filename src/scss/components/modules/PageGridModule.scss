@@ -1,0 +1,7 @@
+.page-grid {
+  .page-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    grid-gap: 1rem;
+  }
+}

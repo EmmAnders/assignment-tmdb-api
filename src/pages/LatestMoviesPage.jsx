@@ -6,6 +6,7 @@ import { getLatestMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
 //Components
+import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 
@@ -40,33 +41,17 @@ const LatestMoviesPage = () => {
     "latest",
   ];
 
-  // Animation
-  const revealContent = useRef(null);
-  revealContent.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !revealContent.current.includes(el)) {
-      revealContent.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    revealContent.current.forEach((el, index) => {
-      staggerElements(el);
-    });
-  });
-
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
 
       {data?.results && (
-        <section className="movies-page-container">
+        <>
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
-          <section className="page-content">
+          <PageGridModule>
             {data.results.map((movie) => (
-              <div ref={addToRefs} key={movie.id}>
+              <div key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -74,8 +59,8 @@ const LatestMoviesPage = () => {
                 ></Card>
               </div>
             ))}
-          </section>
-        </section>
+          </PageGridModule>
+        </>
       )}
     </>
   );

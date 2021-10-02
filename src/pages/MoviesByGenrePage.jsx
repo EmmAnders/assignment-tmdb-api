@@ -9,15 +9,14 @@ import { Context } from "../contexts/Context";
 import { getMoviesByGenreId } from "../services/API";
 
 //Components
+import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
 
-//Styles
-import "../scss/pages/Movies.scss";
 
 const GenrePage = () => {
-  const { handleClickToMovieId, staggerElements } = useContext(Context);
+  const { handleClickToMovieId } = useContext(Context);
   const { id, name } = useParams();
   const history = useHistory();
 
@@ -44,22 +43,6 @@ const GenrePage = () => {
     });
   }, [id]);
 
-  // Animation
-  const revealContent = useRef(null);
-  revealContent.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !revealContent.current.includes(el)) {
-      revealContent.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    revealContent.current.forEach((el, index) => {
-      staggerElements(el);
-    });
-  });
-
   const textArray = [name, name, name, name, name, name];
 
   return (
@@ -68,10 +51,10 @@ const GenrePage = () => {
       {isLoading && <div>Loading...</div>}
       <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
       {data?.results && (
-        <section className="movies-page-container">
-          <section className="page-content">
+        <>
+          <PageGridModule>
             {data.results.map((movie, i) => (
-              <div ref={addToRefs} key={movie.id}>
+              <div key={movie.id}>
                 <Card
                   onClick={() => handleClickToMovieId(movie.id)}
                   src={movie.poster_path}
@@ -81,7 +64,7 @@ const GenrePage = () => {
                 ></Card>
               </div>
             ))}
-          </section>
+          </PageGridModule>
 
           <Pagination
             onClickPrevious={() => setPage((old) => Math.max(old - 1, 1))}
@@ -95,7 +78,7 @@ const GenrePage = () => {
             }}
             disabledNext={isPreviousData || !data.page}
           ></Pagination>
-        </section>
+        </>
       )}
     </>
   );
