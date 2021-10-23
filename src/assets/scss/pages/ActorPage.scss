@@ -1,0 +1,92 @@
+@import "../abstracts/Breakpoints.scss";
+@import "../abstracts/Settings.scss";
+
+.actor-page-container {
+  .profile-container {
+    .subheading {
+      letter-spacing: $letter-spacing-large;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(1fr);
+      align-items: start;
+      box-sizing: border-box;
+      border: $border;
+      margin: -1px 0 0 -1px;
+
+      @include desktop {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .image-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 1rem;
+        padding: $padding-s;
+      }
+
+      .tile img {
+        padding: 0px;
+        object-fit: cover;
+        @include desktop {
+        }
+      }
+
+      .tile {
+        &:nth-child(1) {
+          grid-column: span 4;
+          grid-row: span 2;
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          grid-column: span 2;
+        }
+      }
+
+      .link {
+        a {
+          display: flex;
+          justify-content: space-between;
+          cursor: pointer;
+          padding: 1rem 0rem;
+          letter-spacing: $letter-spacing-large;
+          text-transform: uppercase;
+
+          @include desktop {
+            padding: 0px;
+          }
+        }
+      }
+
+      .text {
+        line-height: 1.7rem;
+        border-left: $border;
+        padding-left: $padding-s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        .link {
+          padding-bottom: $padding-s;
+        }
+
+        @include desktop {
+        }
+      }
+    }
+  }
+
+  .no-content {
+    letter-spacing: $letter-spacing-large;
+    justify-content: center;
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0vh;
+    width: 100%;
+  }
+}

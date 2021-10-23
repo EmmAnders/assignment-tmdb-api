@@ -1,0 +1,26 @@
+@import "../../abstracts/Breakpoints.scss";
+@import "../../abstracts/Settings.scss";
+
+.page-horizontal-scroll {
+  /*  position: fixed; */
+  /*  display: flex;
+  justify-content: space-around;
+  width: 6000px;
+  transition: transform 0.15s;
+  will-change: transform;
+ */
+  /*   display: flex;
+  justify-content: space-around; */
+  /*   flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+ */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > * {
+    /*   width: 500px;
+    height: 800px; */ /*     position: relative; */
+  }
+}

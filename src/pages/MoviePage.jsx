@@ -2,7 +2,6 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
-import { motion } from "framer-motion";
 
 //Context, API
 import {
@@ -10,28 +9,27 @@ import {
   getCastByMovieId,
   getSimiliarMovies,
 } from "../services/API";
+
 import { Context } from "../contexts/Context";
 
 //Components
-import PageGridModule from "../components/modules/PageGridModule";
+import MoviesModule from "../components/modules/MoviesModule";
 import HeadingLg from "../components/HeadingLg";
 import HeadingSm from "../components/HeadingSm";
-import Button from "../components/Button";
-import Card from "../components/Card";
+import Row from "../components/Row";
+import Button from "../components/common/Btn";
 
 //Styles
-import "../scss/pages/Movie.scss";
-
-//Icons
-import plus from "../assets/icons/plus.svg";
-import arrowRight from "../assets/icons/arrow-right.svg";
+import "../assets/scss/pages/Movie.scss";
+import ArrowUpRight from "../components/fragments/ArrowUpRight";
 
 const MoviePage = () => {
   const { handleClickToMovieId } = useContext(Context);
   const { id } = useParams();
   const history = useHistory();
   const [loadMovies, setLoadMovies] = useState(4);
-  const [openActor, setOpenActor] = useState(false);
+  const [openActors, setOpenActors] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
 
   //Fetching data
@@ -48,21 +46,16 @@ const MoviePage = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleLoadMore = () => {
-    setLoadMovies(loadMovies + 5);
+  const handleOpenActors = () => {
+    setOpenActors(!openActors);
   };
 
-  const handleOpenActor = () => {
-    setOpenActor(!openActor);
+  const handleOpenDetails = () => {
+    setOpenDetails(!openDetails);
   };
 
   return (
-    <motion.section
-      className="movie-page-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.5 }}
-    >
+    <section className="details-page">
       {movieDetails.data && (
         <>
           <HeadingLg
@@ -70,115 +63,108 @@ const MoviePage = () => {
             text={movieDetails.data.title}
           ></HeadingLg>
 
-          <div className="poster">
-            <img
-              src={baseUrlImg + movieDetails.data.poster_path}
-              alt={movieDetails.data.title}
-            />
-          </div>
-
-          <div className="overview">
-            <p>{movieDetails.data.overview}</p>
-          </div>
-
-          <div className="specs">
-            <div>
-              <p>{movieDetails.data.original_title.toUpperCase()}</p>
-
-              <p>{movieDetails.data.release_date}</p>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://www.imdb.com/title/${movieDetails.data.imdb_id}`}
-              >
-                IMDB
-              </a>
-              <p>{movieDetails.data.original_language.toUpperCase()}</p>
+          <section className="details-page-section-1">
+            <div className="details-page-section-1-inner inner-left">
+              <div className="poster">
+                <img
+                  src={baseUrlImg + movieDetails.data.poster_path}
+                  alt={movieDetails.data.title}
+                />
+              </div>
             </div>
 
-            <div>
-              {movieDetails.data.genres.map((genre, i) => (
-                <p key={i}> {genre.name.toUpperCase()}</p>
-              ))}
+            <div className="details-page-section-1-inner inner-right">
+              <div>
+                <p>{movieDetails.data.overview}</p>
+              </div>
             </div>
+          </section>
+          {/* End of Section 1 */}
 
-            <div onClick={handleOpenActor} className="dropdown">
-              <button>
-                <p> Actors </p> <img src={plus} alt="view actors" />
-              </button>
-            </div>
-          </div>
+          <section
+            onClick={handleOpenDetails}
+            className="details-page-section-2"
+          >
+            <Button
+              open={openDetails}
+              className={"heading"}
+              text={"details"}
+            ></Button>
+
+            {openDetails && (
+              <div className="details-page-section-2-info-inner">
+                <Row
+                  label="original title"
+                  text={movieDetails.data.original_title}
+                />
+                <Row
+                  label="original language"
+                  text={movieDetails.data.original_language}
+                />
+                <Row
+                  label="release date"
+                  text={movieDetails.data.release_date}
+                />
+
+                <Row label="runtime" text={movieDetails.data.runtime} />
+
+                <Row
+                  label="vote average"
+                  text={movieDetails.data.vote_average}
+                />
+                <Row label="vote count" text={movieDetails.data.vote_count} />
+                <div className="genre">
+                  <p className="label">Genre</p>
+                  <div className="text">
+                    {movieDetails.data.genres.map((genre, i) => (
+                      <p key={i}>{genre.name}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
         </>
       )}
 
-      <>
-        <div className="movie-actors-container">
-          {openActor && (
-            <table className="table">
-              <tbody>
-                {movieCast.data &&
-                  Object.keys(movieCast.data.cast).map((item, i) => (
-                    <tr key={i}>
-                      {movieCast.data.cast[item].known_for_department ===
-                      "Acting" ? (
-                        <td
-                          onClick={() =>
-                            handleClickToActorId(movieCast.data.cast[item].id)
-                          }
-                        >
-                          <p>
-                            {movieCast.data.cast[item].name} as{" "}
-                            <span> {movieCast.data.cast[item].character}</span>
-                          </p>
-                          <div className="cta-flex">
-                            View profile
-                            <img src={arrowRight} alt="view actor" />
-                          </div>
-                        </td>
-                      ) : null}
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </>
-
-      <div className="movies-container">
-        <HeadingSm text="You might also like"></HeadingSm>
-        {similarMovies?.data && (
-          <>
-            <PageGridModule>
-              {similarMovies.data.results.map((movie, i) => {
-                if (i === loadMovies) {
-                  return null;
-                } else if (i < loadMovies) {
-                  return (
-                    <React.Fragment key={i}>
-                      <Card
-                        onClick={() => handleClickToMovieId(movie.id)}
-                        src={movie.backdrop_path}
-                        title={movie.title}
-                      ></Card>
-                    </React.Fragment>
-                  );
-                }
-              })}
-            </PageGridModule>
-            {loadMovies < similarMovies.data.results.length ? (
-              <Button
-                className="btn-wrapper"
-                cta="Load more"
-                onClick={handleLoadMore}
-              ></Button>
-            ) : (
-              ""
-            )}
-          </>
+      <section onClick={handleOpenActors} className="details-page-section-3">
+        <Button
+          open={openActors}
+          className={"heading"}
+          text={"actors"}
+        ></Button>
+        {openActors && (
+          <div>
+            {movieCast.data &&
+              Object.keys(movieCast.data.cast).map((item, i) => (
+                <React.Fragment key={i}>
+                  {movieCast.data.cast[item].known_for_department ===
+                  "Acting" ? (
+                    <div
+                      onClick={() =>
+                        handleClickToActorId(movieCast.data.cast[item].id)
+                      }
+                    >
+                      <Row
+                        label={`${movieCast.data.cast[item].name} as -
+                      ${movieCast.data.cast[item].character}`}
+                        text="view"
+                        icon={<ArrowUpRight />}
+                      />
+                    </div>
+                  ) : null}
+                </React.Fragment>
+              ))}
+          </div>
         )}
-      </div>
-    </motion.section>
-  );
+      </section>
+
+      <section className="details-page-section-4">
+        <HeadingSm text="You might also like"></HeadingSm>
+        {similarMovies?.data && <MoviesModule data={similarMovies.data} />}
+      </section>
+    </section> /* End */
+  ); //END
 };
 
 export default MoviePage;

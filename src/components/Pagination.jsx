@@ -1,29 +1,34 @@
 import React from "react";
 
-import "../scss/components/Pagination.scss";
-import arrowLeft from "../assets/icons/arrow-left.svg";
-import arrowRight from "../assets/icons/arrow-right.svg";
+import "../assets/scss/components/Pagination.scss";
+/* import arrowLeft from "../assets/icons/arrow-left.svg";
+import arrowRight from "../assets/icons/arrow-right.svg"; */
 
 const Pagination = (props) => {
   return (
     <div className="pagination">
       <div>
         <button
+          className="previous"
           onClick={props.onClickPrevious}
           disabled={props.disabledPrevious}
         >
-          <img src={arrowLeft} alt="back" />
+          Previous
         </button>
       </div>
-      <div>
+      {/* <div>
         <p>
           {props.page} of {props.totalPages}
         </p>
-      </div>
+      </div> */}
 
       <div>
-        <button onClick={props.onClickNext} disabled={props.disabledNext}>
-          <img src={arrowRight} alt="forward" />
+        <button
+          className="next"
+          onClick={props.onClickNext}
+          disabled={props.disabledNext}
+        >
+          Next
         </button>
       </div>
     </div>

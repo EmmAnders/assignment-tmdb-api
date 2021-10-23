@@ -7,9 +7,9 @@ if (typeof window !== `undefined`) {
   gsap.core.globals("ScrollTrigger", ScrollTrigger);
 }
 
-export default function skewElements(element) {
+export default function skewElements(element, direction) {
   let proxy = { skew: 0 },
-    skewSetter = gsap.quickSetter(element, "skewY", "deg"),
+    skewSetter = gsap.quickSetter(element, direction, "deg"),
     clamp = gsap.utils.clamp(-20, 20);
 
   ScrollTrigger.create({

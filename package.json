@@ -10,12 +10,14 @@
     "axios": "^0.21.4",
     "framer-motion": "^4.1.17",
     "gsap": "^3.7.1",
+    "query-string": "^7.0.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-fast-marquee": "^1.2.1",
     "react-query": "^3.23.0",
     "react-router-dom": "^5.3.0",
     "sass": "^1.39.2",
+    "use-query-params": "^1.2.3",
     "use-url-search-params": "^2.3.13"
   },
   "devDependencies": {

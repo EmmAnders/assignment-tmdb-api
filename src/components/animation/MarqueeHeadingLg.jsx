@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Marquee from "react-fast-marquee";
 
-import "../../scss/components/Heading.scss";
+import "../../assets/scss/components/Heading.scss";
 
 const MarqueeHeadingLg = (props) => {
   return (

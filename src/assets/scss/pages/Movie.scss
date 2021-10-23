@@ -1,0 +1,90 @@
+@import "../abstracts/Breakpoints.scss";
+@import "../abstracts/Settings.scss";
+
+.details-page {
+  .title {
+    padding: 0rem $padding-s;
+  }
+
+  &-section-1 {
+    border-top: $border;
+    @include desktop {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .inner-left {
+      border-bottom: $border;
+      border-right: $border;
+
+      /*   background-color: rgb(41, 40, 40);
+      background-image: radial-gradient($color-white 20%, transparent 20%),
+        radial-gradient($color-white 20%, transparent 20%);
+      background-color: $color-black;
+      background-position: 0 0, 50px 50px;
+      background-size: 2px 5px; */
+
+      .poster {
+        margin: 0 auto;
+        padding: $padding-s;
+        @include tablet {
+          width: 300px;
+          height: 300px;
+          padding: 10rem;
+        }
+
+        img {
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .inner-right {
+      border-bottom: $border;
+      display: flex;
+      align-items: flex-end;
+
+      p {
+        font-size: 1.4rem;
+        padding: $padding-s;
+      }
+    }
+
+    &-inner {
+      flex: 1 50%;
+    }
+  }
+
+  &-section-2 {
+    .genre {
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+      border-bottom: $border;
+      padding: $padding-s;
+      font-size: 0.8rem;
+
+      .text {
+        display: flex;
+        p {
+          margin-left: $margin-xs;
+        }
+      }
+    }
+  }
+
+  &-section-2,
+  &-section-3 {
+    cursor: pointer;
+    .heading {
+      text-align: center;
+      border-bottom: $border;
+      padding: $padding-s 0rem;
+    }
+  }
+
+  &-section-4 {
+  }
+}

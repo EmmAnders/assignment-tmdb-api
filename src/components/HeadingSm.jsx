@@ -1,7 +1,7 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 
-import "../scss/components/Heading.scss";
+import "../assets/scss/components/Heading.scss";
 
 const HeadingSm = (props) => {
   return (

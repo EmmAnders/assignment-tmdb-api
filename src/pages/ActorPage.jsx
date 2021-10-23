@@ -11,17 +11,16 @@ import { getMoviesByActorId, getActorProfileById } from "../services/API";
 import Marquee from "react-fast-marquee";
 
 //Components
+import MoviesModule from "../components/modules/MoviesModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
+import PageGridModule from "../components/modules/PageGridModule";
 import HeadingLg from "../components/HeadingLg";
 import HeadingSm from "../components/HeadingSm";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
-//Icons
-import arrowLeft from "../assets/icons/arrow-left.svg";
-
 //Styles
-import "../scss/pages/ActorPage.scss";
+import "../assets/scss/pages/ActorPage.scss";
 
 const ActorPage = () => {
   const { handleClickToMovieId, baseUrlImg } = useContext(Context);
@@ -56,12 +55,7 @@ const ActorPage = () => {
   }, [profile.data]);
 
   return (
-    <motion.section
-      className="actor-page-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.5 }}
-    >
+    <section className="actor-page-container">
       {movies.isError || (profile.isError && <div>{error.message}</div>)}
       {movies.isLoading || (profile.isLoading && <div>Loading...</div>)}
 
@@ -69,13 +63,6 @@ const ActorPage = () => {
         <>
           <section className="profile-container">
             <MarqueeHeadingLg textArray={actorNameArray}></MarqueeHeadingLg>
-
-            <section className="subheading">
-              <Marquee direction="right" speed={[75]} gradient={false}>
-                <p>{profile.data.place_of_birth}</p>
-              </Marquee>
-            </section>
-
             <section className="content">
               <div>
                 <div className="image-container">
@@ -100,19 +87,15 @@ const ActorPage = () => {
                     />
                   </div>
                 </div>
-
-                <div className="link">
-                  <a href={`https://www.imdb.com/name/${profile.data.imdb_id}`}>
-                    <div>Imdb</div>
-                    <div>
-                      <img src={arrowLeft} alt="arrow-left" />
-                    </div>
-                  </a>
-                </div>
               </div>
 
               <div className="text">
                 <p>{profile.data.biography}</p>
+                <div className="link">
+                  <a href={`https://www.imdb.com/name/${profile.data.imdb_id}`}>
+                    <div>Imdb</div>
+                  </a>
+                </div>
               </div>
             </section>
           </section>
@@ -121,48 +104,8 @@ const ActorPage = () => {
           ></HeadingSm>
         </>
       )}
-
-      {movies.data?.results && (
-        <>
-          <section className="movies-container">
-            {movies.data.results.length > 0 ? (
-              <>
-                {movies.data.results.map((movie, i) => {
-                  if (i === loadMovies) {
-                    return null;
-                  } else if (i < loadMovies) {
-                    return (
-                      <React.Fragment key={movie.id}>
-                        <Card
-                          onClick={() => handleClickToMovieId(movie.id)}
-                          src={movie.poster_path}
-                          title={movie.title}
-                          releaseDate={movie.release_date}
-                          voteAverage={movie.vote_average}
-                          genre1={movie.genre_ids.map((id) => id).join("/")}
-                        ></Card>
-                      </React.Fragment>
-                    );
-                  }
-                })}
-              </>
-            ) : (
-              <p className="no-content">It's Empty..</p>
-            )}
-          </section>
-
-          {loadMovies < movies.data.results.length ? (
-            <Button
-              className="btn-wrapper"
-              cta="Load more"
-              onClick={handleLoadMore}
-            ></Button>
-          ) : (
-            ""
-          )}
-        </>
-      )}
-    </motion.section>
+      {movies.data?.results && <MoviesModule data={movies.data} />}
+    </section>
   );
 };
 
