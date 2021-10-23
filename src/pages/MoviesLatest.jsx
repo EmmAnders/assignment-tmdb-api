@@ -1,27 +1,31 @@
 import React, { useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
-
-import skewElements from "../components/animation/SkewElements";
+import { useQueryParam, NumberParam } from "use-query-params";
 
 //Context, API
 import { getLatestMovies } from "../services/API";
-import { Context } from "../contexts/Context";
 
 //Components
-import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
-import Card from "../components/Card";
+import Pagination from "../components/Pagination";
+import MoviesModule from "../components/modules/MoviesModule";
 
 //Styles
-import "../scss/pages/Movies.scss";
+import "../assets/scss/pages/Movies.scss";
 
 const MoviesLatest = () => {
-  const { handleClickToMovieId } = useContext(Context);
-
-  const { data, error, isError, isLoading } = useQuery(
-    "latest-movies",
-    getLatestMovies
+  const [param, setParam] = useQueryParam("page", NumberParam);
+  const { data, error, isError, isLoading, isPreviousData } = useQuery(
+    ["latest-movies", { param }],
+    getLatestMovies,
+    {
+      keepPreviousData: true,
+    }
   );
+
+  useEffect(() => {
+    setParam(1);
+  }, []);
 
   // Text Array for Heading
   let textArray = [
@@ -34,19 +38,6 @@ const MoviesLatest = () => {
     "latest",
   ];
 
-  const elements = useRef(null);
-  elements.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !elements.current.includes(el)) {
-      elements.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    skewElements(elements.current);
-  }, [elements.current]);
-
   return (
     <>
       {isLoading && <p>Loading movies...</p>}
@@ -55,17 +46,19 @@ const MoviesLatest = () => {
       {data?.results && (
         <>
           <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
-          <PageGridModule>
-            {data.results.map((movie) => (
-              <div ref={addToRefs} key={movie.id}>
-                <Card
-                  onClick={() => handleClickToMovieId(movie.id)}
-                  src={movie.poster_path}
-                  title={movie.title}
-                ></Card>
-              </div>
-            ))}
-          </PageGridModule>
+          <MoviesModule data={data} />
+          <Pagination
+            onClickPrevious={() => setParam((old) => Math.max(old - 1, 1))}
+            disabledPrevious={param === 1}
+            page={param}
+            totalPages={data.total_pages}
+            onClickNext={() => {
+              if (!isPreviousData && data.page) {
+                setParam((old) => old + 1);
+              }
+            }}
+            disabledNext={isPreviousData || !data.page}
+          ></Pagination>
         </>
       )}
     </>
