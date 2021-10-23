@@ -2,61 +2,47 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Context } from "../contexts/Context";
 import { search } from "../services/API";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
 
 import PageGridModule from "../components/modules/PageGridModule";
-import Card from "../components/Card";
-
-//Animation
-import skewElements from "../components/animation/SkewElements";
+import MoviesModule from "../components/modules/MoviesModule";
 
 //Styles
-import "../scss/pages/Search.scss";
+import "../assets/scss/pages/Search.scss";
+//Styles
+import "../assets/scss/components/SearchInput.scss";
 
 const Search = () => {
-  const { searchQuery, openSearch, handleClickToMovieId } = useContext(Context);
-  const { isLoading, isError, error, data, isPreviousData } = useQuery(
-    ["search-movies", searchQuery],
-    () => {
-      if (searchQuery) {
-        return search(searchQuery);
-      }
-    },
-    {
-      keepPreviousData: true,
-    }
-  );
+  const history = useHistory();
+  const {
+    searchQuery,
+    data,
+    setOpenSearch,
+    setSearchQuery,
+  } = useContext(Context);
 
-  const elements = useRef(null);
-  elements.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !elements.current.includes(el)) {
-      elements.current.push(el);
-    }
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/movies/search?keyword=${searchQuery}`);
+    setOpenSearch(false);
   };
 
-  useEffect(() => {
-    skewElements(elements.current);
-  }, [elements.current]);
-
   return (
-    <PageGridModule>
-      {data?.results.length > 0 ? (
-        <PageGridModule>
-          {data.results.map((movie) => (
-            <div ref={addToRefs} key={movie.id}>
-              <Card
-                onClick={() => handleClickToMovieId(movie.id)}
-                src={movie.poster_path}
-                title={movie.title}
-              ></Card>
-            </div>
-          ))}
-        </PageGridModule>
-      ) : (
-        <div className="search-error">NO RESULTS FOUND.</div>
-      )}
-    </PageGridModule>
+    <div className="search-page">
+      <div className="search-page-field">
+        <form onSubmit={handleOnSubmit}>
+          <input
+            size="100"
+            type="text"
+            placeholder="Type your search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+          />
+        </form>
+      </div>
+
+      {data?.results.length > 0 ? <MoviesModule data={data} /> : null}
+    </div>
   );
 };
 
