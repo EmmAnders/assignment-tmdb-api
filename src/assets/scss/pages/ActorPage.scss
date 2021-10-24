@@ -29,8 +29,6 @@
       .tile img {
         padding: 0px;
         object-fit: cover;
-        @include desktop {
-        }
       }
 
       .tile {
@@ -44,23 +42,7 @@
         }
       }
 
-      .link {
-        a {
-          display: flex;
-          justify-content: space-between;
-          cursor: pointer;
-          padding: 1rem 0rem;
-          letter-spacing: $letter-spacing-large;
-          text-transform: uppercase;
-
-          @include desktop {
-            padding: 0px;
-          }
-        }
-      }
-
       .text {
-        line-height: 1.7rem;
         border-left: $border;
         padding-left: $padding-s;
         display: flex;
@@ -68,8 +50,16 @@
         justify-content: space-between;
         height: 100%;
 
+        .bio {
+          padding-top: $padding-xs;
+        }
+
         .link {
-          padding-bottom: $padding-s;
+          .imdb {
+            display: flex;
+            align-items: center;
+            padding-bottom: $padding-xs;
+          }
         }
 
         @include desktop {

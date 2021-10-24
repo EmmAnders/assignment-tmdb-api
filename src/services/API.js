@@ -43,19 +43,13 @@ export const getLatestMovies = async ({ queryKey }) => {
 
 export const getMovieDetails = async (id) => {
   return get(
-    `movie/${id}?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
+    `movie/${id}?api_key=feda2f277ecb42f240ac1d6088e4c0e2&append_to_response=credits`
   );
 };
 
 export const getSimiliarMovies = async (id) => {
   return get(
     `movie/${id}/similar?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US&page=1`
-  );
-};
-
-export const getCastByMovieId = async (id) => {
-  return get(
-    `movie/${id}/credits?api_key=feda2f277ecb42f240ac1d6088e4c0e2&language=en-US`
   );
 };
 

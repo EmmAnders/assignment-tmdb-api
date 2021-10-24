@@ -7,8 +7,8 @@ const Card = (props) => {
 
   return (
     <div ref={props.ref} onClick={props.onClick} className="card">
-      <div class="card-content-wrapper">
-        <div class="img-wrapper">
+      <div className="card-content-wrapper">
+        <div className="img-wrapper">
           <img
             src={props.src ? baseUrlImg + props.src : null}
             alt={props.alt}

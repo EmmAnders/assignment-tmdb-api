@@ -8,7 +8,7 @@ import { getMoviesByGenreId } from "../services/API";
 import MoviesModule from "../components/modules/MoviesModule";
 
 //Components
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
+import MarqueeHeading from "../components/common/MarqueeHeading";
 import Pagination from "../components/Pagination";
 
 const GenrePage = () => {
@@ -33,7 +33,7 @@ const GenrePage = () => {
     <>
       {isError && <div>{error.message}</div>}
       {isLoading && <div>Loading...</div>}
-      <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
+      <MarqueeHeading textArray={textArray}></MarqueeHeading>
       {data?.results && (
         <>
           <MoviesModule data={data} />

@@ -10,7 +10,7 @@ import { getTopRatedMovies } from "../services/API";
 //Components
 import MoviesModule from "../components/modules/MoviesModule";
 import Pagination from "../components/Pagination";
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
+import MarqueeHeading from "../components/common/MarqueeHeading";
 
 const MoviesTopRated = () => {
   const [param, setParam] = useQueryParam("page", NumberParam);
@@ -47,7 +47,7 @@ const MoviesTopRated = () => {
       {isError && <p>({error})</p>}
       {data?.results && (
         <>
-          <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
+          <MarqueeHeading textArray={textArray}></MarqueeHeading>
           <MoviesModule data={data} />
           <Pagination
             onClickPrevious={() => setParam((old) => Math.max(old - 1, 1))}

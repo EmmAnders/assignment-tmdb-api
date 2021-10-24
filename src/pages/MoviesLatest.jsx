@@ -6,7 +6,7 @@ import { useQueryParam, NumberParam } from "use-query-params";
 import { getLatestMovies } from "../services/API";
 
 //Components
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
+import MarqueeHeading from "../components/common/MarqueeHeading";
 import Pagination from "../components/Pagination";
 import MoviesModule from "../components/modules/MoviesModule";
 
@@ -45,7 +45,7 @@ const MoviesLatest = () => {
 
       {data?.results && (
         <>
-          <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
+          <MarqueeHeading textArray={textArray}></MarqueeHeading>
           <MoviesModule data={data} />
           <Pagination
             onClickPrevious={() => setParam((old) => Math.max(old - 1, 1))}

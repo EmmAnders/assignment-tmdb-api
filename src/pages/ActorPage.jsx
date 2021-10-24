@@ -7,39 +7,27 @@ import { motion } from "framer-motion";
 import { Context } from "../contexts/Context";
 import { getMoviesByActorId, getActorProfileById } from "../services/API";
 
-//Animations
-import Marquee from "react-fast-marquee";
-
 //Components
-import MoviesModule from "../components/modules/MoviesModule";
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
+import MarqueeHeading from "../components/common/MarqueeHeading";
 import PageGridModule from "../components/modules/PageGridModule";
-import HeadingLg from "../components/HeadingLg";
-import HeadingSm from "../components/HeadingSm";
 import Card from "../components/Card";
-import Button from "../components/Button";
+import ArrowUpRight from "../components/fragments/ArrowUpRight";
+import LoadMoreBtn from "../components/common/LoadMoreBtn";
+import BackButton from "../components/common/BackButton";
 
 //Styles
 import "../assets/scss/pages/ActorPage.scss";
 
 const ActorPage = () => {
+  const [loadMovies, setLoadMovies] = useState(4);
+  const [actorNameArray, setActorNameArray] = useState([]);
+
   const { handleClickToMovieId, baseUrlImg } = useContext(Context);
-
   const { id } = useParams();
-
+  const profile = useQuery(["actor-info", id], () => getActorProfileById(id));
   const movies = useQuery(["movies-by-actor", id], () =>
     getMoviesByActorId(id)
   );
-
-  const profile = useQuery(["actor-info", id], () => getActorProfileById(id));
-
-  const [loadMovies, setLoadMovies] = useState(5);
-
-  const handleLoadMore = () => {
-    setLoadMovies(loadMovies + 5);
-  };
-
-  const [actorNameArray, setActorNameArray] = useState([]);
 
   //Names for animation on heading
   useEffect(() => {
@@ -62,7 +50,8 @@ const ActorPage = () => {
       {profile.data && (
         <>
           <section className="profile-container">
-            <MarqueeHeadingLg textArray={actorNameArray}></MarqueeHeadingLg>
+            <BackButton />
+            <MarqueeHeading textArray={actorNameArray}></MarqueeHeading>
             <section className="content">
               <div>
                 <div className="image-container">
@@ -90,21 +79,48 @@ const ActorPage = () => {
               </div>
 
               <div className="text">
-                <p>{profile.data.biography}</p>
+                <p className="bio">{profile.data.biography}</p>
                 <div className="link">
                   <a href={`https://www.imdb.com/name/${profile.data.imdb_id}`}>
-                    <div>Imdb</div>
+                    <div className="imdb">
+                      <p>IMDB</p>
+                      <ArrowUpRight />
+                    </div>
                   </a>
                 </div>
               </div>
             </section>
           </section>
-          <HeadingSm
-            text={"Movies by" + " " /* profile.data.name */}
-          ></HeadingSm>
         </>
       )}
-      {movies.data?.results && <MoviesModule data={movies.data} />}
+      {movies.data?.results && (
+        <>
+          <PageGridModule>
+            {movies.data.results.map((movie, i) => {
+              if (i === loadMovies) {
+                return null;
+              } else if (i < loadMovies) {
+                return (
+                  <div className="card-wrapper" key={movie.id}>
+                    <Card
+                      onClick={() => handleClickToMovieId(movie.id)}
+                      src={movie.poster_path}
+                      title={movie.title}
+                    ></Card>
+                  </div>
+                );
+              }
+            })}
+          </PageGridModule>
+          {loadMovies < movies.data.results.length ? (
+            <LoadMoreBtn
+              onClick={() => setLoadMovies(loadMovies + 8)}
+            ></LoadMoreBtn>
+          ) : (
+            ""
+          )}
+        </>
+      )}
     </section>
   );
 };
