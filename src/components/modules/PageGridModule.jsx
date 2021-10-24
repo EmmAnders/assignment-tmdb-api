@@ -1,7 +1,7 @@
 import React from "react";
 
 //Styles
-import "../../scss/components/modules/PageGridModule.scss";
+import "../../assets/scss/components/modules/PageGridModule.scss";
 
 const PageGridModule = ({ children }) => {
   return (

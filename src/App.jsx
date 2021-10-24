@@ -2,92 +2,63 @@ import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Context } from "./contexts/Context";
-import { search } from "./services/API";
-import { useQuery } from "react-query";
 
-import Navbar from "./components/Navbar";
+import SiteNavigation from "./components/navigation/SiteNavigation";
 import Home from "./pages/Home";
+import Search from "./pages/Search";
 import MoviesTopRated from "./pages/MoviesTopRated.jsx";
 import MoviesPopular from "./pages/MoviesPopular.jsx";
 import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
 import MoviesLatest from "./pages/MoviesLatest";
-import Search from "./components/Search";
-import Card from "./components/Card";
 
-import "./App.scss";
+import "./assets/scss/base/Global.scss";
 
 function App() {
-  const { searchQuery, openSearch, handleClickToMovieId } = useContext(Context);
-
-  const { isLoading, isError, error, data, isPreviousData } = useQuery(
-    ["search-movies", searchQuery],
-    () => {
-      if (searchQuery) {
-        return search(searchQuery);
-      }
-    },
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { searchQuery } = useContext(Context);
 
   return (
     <>
       <header>
-        <Navbar />
-        {openSearch && <Search />}
+        <SiteNavigation />
+        {/*       {openSearch && <SearchInput />} */}
       </header>
-      {!searchQuery ? (
-        <main className="site-container">
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
+      <main className="site-container">
+        <Switch>
+          <Route exact path="/movies/search">
+            <Search />
+          </Route>
+          
+          <Route exact path="/">
+            <Home />
+          </Route>
 
-            <Route exact path="/movies/latest">
-              <MoviesLatest />
-            </Route>
+          <Route exact path="/movies/latest">
+            <MoviesLatest />
+          </Route>
 
-            <Route exact path="/movies/top-rated">
-              <MoviesTopRated />
-            </Route>
+          <Route exact path="/movies/top-rated">
+            <MoviesTopRated />
+          </Route>
 
-            <Route exact path="/movies/most-popular">
-              <MoviesPopular />
-            </Route>
+          <Route exact path="/movies/most-popular">
+            <MoviesPopular />
+          </Route>
 
-            <Route exact path="/movies/genre/:name/:id">
-              <MoviesByGenrePage />
-            </Route>
+          <Route exact path="/movies/genre/:name/:id">
+            <MoviesByGenrePage />
+          </Route>
 
-            <Route exact path="/movies/:id">
-              <MoviePage />
-            </Route>
+          <Route exact path="/movies/:id">
+            <MoviePage />
+          </Route>
 
-            <Route exact path="/movies/actor/:id">
-              <ActorPage />
-            </Route>
-          </Switch>
-        </main>
-      ) : (
-        <section className="movies-page-container">
-          <section className="page-content">
-            {data?.results.length > 0
-              ? data.results.map((movie) => (
-                  <React.Fragment key={movie.id}>
-                    <Card
-                      onClick={() => handleClickToMovieId(movie.id)}
-                      src={movie.poster_path}
-                      title={movie.title}
-                    ></Card>
-                  </React.Fragment>
-                ))
-              : null}
-          </section>
-        </section>
-      )}
+          <Route exact path="/movies/actor/:id">
+            <ActorPage />
+          </Route>
+        </Switch>
+      </main>
     </>
   );
 }

@@ -1,62 +1,31 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
-import { useUrlSearchParams } from "use-url-search-params";
+import { useQueryParam, NumberParam } from "use-query-params";
 
 //Context, API
-import { Context } from "../contexts/Context";
 import { getMoviesByGenreId } from "../services/API";
+import MoviesModule from "../components/modules/MoviesModule";
 
 //Components
-import PageGridModule from "../components/modules/PageGridModule";
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
-import Card from "../components/Card";
+import MarqueeHeading from "../components/common/MarqueeHeading";
 import Pagination from "../components/Pagination";
 
-//Animation
-import skewElements from "../components/animation/SkewElements";
-
 const GenrePage = () => {
-  const { handleClickToMovieId } = useContext(Context);
   const { id, name } = useParams();
-  const history = useHistory();
-
-  const [params, setParams] = useUrlSearchParams({ page: 1 }, { page: Number });
-  const [page, setPage] = useState(params.page);
+  const [param, setParam] = useQueryParam("page", NumberParam);
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
-    ["genre-movies", { page, id }],
+    ["genre-movies", { param, id }],
     getMoviesByGenreId,
     {
       keepPreviousData: true,
     }
   );
 
-  const elements = useRef(null);
-  elements.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !elements.current.includes(el)) {
-      elements.current.push(el);
-    }
-  };
-
   useEffect(() => {
-    setParams({ ...params, page });
-  }, [page]);
-
-  useEffect(() => {
-    return history.listen((location) => {
-      if (location.pathname) {
-        setPage(1);
-      }
-    });
-  }, [id]);
-
-  useEffect(() => {
-    skewElements(elements.current);
-  });
+    setParam(1);
+  }, []);
 
   const textArray = [name, name, name, name, name, name];
 
@@ -64,31 +33,18 @@ const GenrePage = () => {
     <>
       {isError && <div>{error.message}</div>}
       {isLoading && <div>Loading...</div>}
-      <MarqueeHeadingLg textArray={textArray}></MarqueeHeadingLg>
+      <MarqueeHeading textArray={textArray}></MarqueeHeading>
       {data?.results && (
         <>
-          <PageGridModule>
-            {data.results.map((movie, i) => (
-              <div ref={addToRefs} key={movie.id}>
-                <Card
-                  onClick={() => handleClickToMovieId(movie.id)}
-                  src={movie.poster_path}
-                  title={movie.title}
-                  releaseDate={movie.release_date}
-                  voteAverage={movie.vote_average}
-                ></Card>
-              </div>
-            ))}
-          </PageGridModule>
-
+          <MoviesModule data={data} />
           <Pagination
-            onClickPrevious={() => setPage((old) => Math.max(old - 1, 1))}
-            disabledPrevious={page === 1}
-            page={page}
+            onClickPrevious={() => setParam((old) => Math.max(old - 1, 1))}
+            disabledPrevious={param === 1}
+            page={param}
             totalPages={data.total_pages}
             onClickNext={() => {
               if (!isPreviousData && data.page) {
-                setPage((old) => old + 1);
+                setParam((old) => old + 1);
               }
             }}
             disabledNext={isPreviousData || !data.page}

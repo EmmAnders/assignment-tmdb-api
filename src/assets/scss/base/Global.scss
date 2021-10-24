@@ -1,0 +1,97 @@
+@import "../abstracts/Breakpoints.scss";
+@import "../abstracts/Settings.scss";
+@import "../abstracts/Mixins.scss";
+
+html {
+  @include fluid-typography(16, 25, 300, 1500);
+}
+
+body {
+  /* font-size: 1rem; */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  line-height: 1.5;
+  background-color: $color-default-bg;
+  color: $color-default-text;
+  font-family: $font-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-large;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: $font-weight-normal;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  width: 100%;
+
+  object-fit: cover;
+}
+
+input,
+button,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+button {
+  outline: none;
+  background: none;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: $letter-spacing-large;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid $border;
+  line-height: normal;
+  outline: none;
+  background: none;
+  width: 100%;
+}
+
+.site-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

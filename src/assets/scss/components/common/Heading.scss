@@ -1,0 +1,22 @@
+@import "../../abstracts/Breakpoints.scss";
+@import "../../abstracts/Settings.scss";
+
+.heading-lg {
+  color: $color-accent;
+  padding: $padding-m;
+
+  h1 {
+    margin-right: 2rem;
+    font-size: $font-size-heading-l;
+  }
+}
+
+.heading-sm {
+  font-size: $font-size-heading-s;
+  padding: $padding-m;
+  padding-left: $padding-s;
+
+  h2 {
+    margin-right: 1.5rem;
+  }
+}

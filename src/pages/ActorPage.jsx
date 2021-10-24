@@ -7,40 +7,27 @@ import { motion } from "framer-motion";
 import { Context } from "../contexts/Context";
 import { getMoviesByActorId, getActorProfileById } from "../services/API";
 
-//Animations
-import Marquee from "react-fast-marquee";
-
 //Components
-import MarqueeHeadingLg from "../components/animation/MarqueeHeadingLg";
-import HeadingLg from "../components/HeadingLg";
-import HeadingSm from "../components/HeadingSm";
+import MarqueeHeading from "../components/common/MarqueeHeading";
+import PageGridModule from "../components/modules/PageGridModule";
 import Card from "../components/Card";
-import Button from "../components/Button";
-
-//Icons
-import arrowLeft from "../assets/icons/arrow-left.svg";
+import ArrowUpRight from "../components/fragments/ArrowUpRight";
+import LoadMoreBtn from "../components/common/LoadMoreBtn";
+import BackButton from "../components/common/BackButton";
 
 //Styles
-import "../scss/pages/ActorPage.scss";
+import "../assets/scss/pages/ActorPage.scss";
 
 const ActorPage = () => {
+  const [loadMovies, setLoadMovies] = useState(4);
+  const [actorNameArray, setActorNameArray] = useState([]);
+
   const { handleClickToMovieId, baseUrlImg } = useContext(Context);
-
   const { id } = useParams();
-
+  const profile = useQuery(["actor-info", id], () => getActorProfileById(id));
   const movies = useQuery(["movies-by-actor", id], () =>
     getMoviesByActorId(id)
   );
-
-  const profile = useQuery(["actor-info", id], () => getActorProfileById(id));
-
-  const [loadMovies, setLoadMovies] = useState(5);
-
-  const handleLoadMore = () => {
-    setLoadMovies(loadMovies + 5);
-  };
-
-  const [actorNameArray, setActorNameArray] = useState([]);
 
   //Names for animation on heading
   useEffect(() => {
@@ -56,26 +43,15 @@ const ActorPage = () => {
   }, [profile.data]);
 
   return (
-    <motion.section
-      className="actor-page-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.5 }}
-    >
+    <section className="actor-page-container">
       {movies.isError || (profile.isError && <div>{error.message}</div>)}
       {movies.isLoading || (profile.isLoading && <div>Loading...</div>)}
 
       {profile.data && (
         <>
           <section className="profile-container">
-            <MarqueeHeadingLg textArray={actorNameArray}></MarqueeHeadingLg>
-
-            <section className="subheading">
-              <Marquee direction="right" speed={[75]} gradient={false}>
-                <p>{profile.data.place_of_birth}</p>
-              </Marquee>
-            </section>
-
+            <BackButton />
+            <MarqueeHeading textArray={actorNameArray}></MarqueeHeading>
             <section className="content">
               <div>
                 <div className="image-container">
@@ -100,69 +76,52 @@ const ActorPage = () => {
                     />
                   </div>
                 </div>
+              </div>
 
+              <div className="text">
+                <p className="bio">{profile.data.biography}</p>
                 <div className="link">
                   <a href={`https://www.imdb.com/name/${profile.data.imdb_id}`}>
-                    <div>Imdb</div>
-                    <div>
-                      <img src={arrowLeft} alt="arrow-left" />
+                    <div className="imdb">
+                      <p>IMDB</p>
+                      <ArrowUpRight />
                     </div>
                   </a>
                 </div>
               </div>
-
-              <div className="text">
-                <p>{profile.data.biography}</p>
-              </div>
             </section>
           </section>
-          <HeadingSm
-            text={"Movies by" + " " /* profile.data.name */}
-          ></HeadingSm>
         </>
       )}
-
       {movies.data?.results && (
         <>
-          <section className="movies-container">
-            {movies.data.results.length > 0 ? (
-              <>
-                {movies.data.results.map((movie, i) => {
-                  if (i === loadMovies) {
-                    return null;
-                  } else if (i < loadMovies) {
-                    return (
-                      <React.Fragment key={movie.id}>
-                        <Card
-                          onClick={() => handleClickToMovieId(movie.id)}
-                          src={movie.poster_path}
-                          title={movie.title}
-                          releaseDate={movie.release_date}
-                          voteAverage={movie.vote_average}
-                          genre1={movie.genre_ids.map((id) => id).join("/")}
-                        ></Card>
-                      </React.Fragment>
-                    );
-                  }
-                })}
-              </>
-            ) : (
-              <p className="no-content">It's Empty..</p>
-            )}
-          </section>
-
+          <PageGridModule>
+            {movies.data.results.map((movie, i) => {
+              if (i === loadMovies) {
+                return null;
+              } else if (i < loadMovies) {
+                return (
+                  <div className="card-wrapper" key={movie.id}>
+                    <Card
+                      onClick={() => handleClickToMovieId(movie.id)}
+                      src={movie.poster_path}
+                      title={movie.title}
+                    ></Card>
+                  </div>
+                );
+              }
+            })}
+          </PageGridModule>
           {loadMovies < movies.data.results.length ? (
-            <Button
-              className="btn-wrapper"
-              cta="Load more"
-              onClick={handleLoadMore}
-            ></Button>
+            <LoadMoreBtn
+              onClick={() => setLoadMovies(loadMovies + 8)}
+            ></LoadMoreBtn>
           ) : (
             ""
           )}
         </>
       )}
-    </motion.section>
+    </section>
   );
 };
 

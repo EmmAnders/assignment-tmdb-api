@@ -2,43 +2,44 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
-import { motion } from "framer-motion";
 
 //Context, API
-import {
-  getMovieDetails,
-  getCastByMovieId,
-  getSimiliarMovies,
-} from "../services/API";
+import { getMovieDetails, getSimiliarMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
 //Components
 import PageGridModule from "../components/modules/PageGridModule";
-import HeadingLg from "../components/HeadingLg";
-import HeadingSm from "../components/HeadingSm";
-import Button from "../components/Button";
+import MarqueeHeading from "../components/common/MarqueeHeading";
+import MarqueeSubheading from "../components/common/MarqueeSubheading";
+import Row from "../components/Row";
+import Button from "../components/common/Btn";
+import LoadMoreBtn from "../components/common/LoadMoreBtn";
+import BackButton from "../components/common/BackButton";
 import Card from "../components/Card";
 
 //Styles
-import "../scss/pages/Movie.scss";
-
-//Icons
-import plus from "../assets/icons/plus.svg";
-import arrowRight from "../assets/icons/arrow-right.svg";
+import "../assets/scss/pages/Movie.scss";
+import ArrowUpRight from "../components/fragments/ArrowUpRight";
 
 const MoviePage = () => {
   const { handleClickToMovieId } = useContext(Context);
   const { id } = useParams();
   const history = useHistory();
+  const [titleArray, setTitleArray] = useState([]);
+  const [subtitleArray, setSubitleArray] = useState([
+    "You might also like",
+    "You might also like",
+    "You might also like",
+    "You might also like",
+  ]);
   const [loadMovies, setLoadMovies] = useState(4);
-  const [openActor, setOpenActor] = useState(false);
+  const [openActors, setOpenActors] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
 
-  //Fetching data
   const movieDetails = useQuery(["movie-details", id], () =>
     getMovieDetails(id)
   );
-  const movieCast = useQuery(["movie-cast", id], () => getCastByMovieId(id));
   const similarMovies = useQuery(["similar-movies", id], () =>
     getSimiliarMovies(id)
   );
@@ -48,104 +49,113 @@ const MoviePage = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleLoadMore = () => {
-    setLoadMovies(loadMovies + 5);
-  };
-
-  const handleOpenActor = () => {
-    setOpenActor(!openActor);
-  };
+  //Names for animation on heading
+  useEffect(() => {
+    if (movieDetails.data) {
+      setTitleArray([
+        movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
+      ]);
+    }
+  }, [movieDetails.data]);
 
   return (
-    <motion.section
-      className="movie-page-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.5 }}
-    >
+    <section className="details-page">
+      <BackButton />
       {movieDetails.data && (
         <>
-          <HeadingLg
-            className="title"
-            text={movieDetails.data.title}
-          ></HeadingLg>
-
-          <div className="poster">
-            <img
-              src={baseUrlImg + movieDetails.data.poster_path}
-              alt={movieDetails.data.title}
-            />
-          </div>
-
-          <div className="overview">
-            <p>{movieDetails.data.overview}</p>
-          </div>
-
-          <div className="specs">
-            <div>
-              <p>{movieDetails.data.original_title.toUpperCase()}</p>
-
-              <p>{movieDetails.data.release_date}</p>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://www.imdb.com/title/${movieDetails.data.imdb_id}`}
-              >
-                IMDB
-              </a>
-              <p>{movieDetails.data.original_language.toUpperCase()}</p>
+          <MarqueeHeading textArray={titleArray}></MarqueeHeading>
+          <section className="details-page-section-1">
+            <div className="details-page-section-1-inner inner-left">
+              <div className="poster">
+                <img
+                  src={baseUrlImg + movieDetails.data.poster_path}
+                  alt={movieDetails.data.title}
+                />
+              </div>
             </div>
 
-            <div>
-              {movieDetails.data.genres.map((genre, i) => (
-                <p key={i}> {genre.name.toUpperCase()}</p>
-              ))}
+            <div className="details-page-section-1-inner inner-right">
+              <div>
+                <p>{movieDetails.data.overview}</p>
+              </div>
             </div>
+          </section>
+          <section
+            onClick={() => setOpenDetails(!openDetails)}
+            className="details-page-section-2"
+          >
+            <Button
+              open={openDetails}
+              className={"heading"}
+              text={"details"}
+            ></Button>
 
-            <div onClick={handleOpenActor} className="dropdown">
-              <button>
-                <p> Actors </p> <img src={plus} alt="view actors" />
-              </button>
-            </div>
-          </div>
+            {openDetails && (
+              <div className="details-page-section-2-info-inner">
+                <Row
+                  label="original title"
+                  text={movieDetails.data.original_title}
+                />
+                <Row
+                  label="original language"
+                  text={movieDetails.data.original_language}
+                />
+                <Row
+                  label="release date"
+                  text={movieDetails.data.release_date}
+                />
+
+                <Row label="runtime" text={movieDetails.data.runtime} />
+
+                <Row
+                  label="vote average"
+                  text={movieDetails.data.vote_average}
+                />
+                <Row label="vote count" text={movieDetails.data.vote_count} />
+                <div className="genre">
+                  <p className="label">Genre</p>
+                  <div className="text">
+                    {movieDetails.data.genres.map((genre, i) => (
+                      <p key={i}>{genre.name}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
         </>
       )}
 
-      <>
-        <div className="movie-actors-container">
-          {openActor && (
-            <table className="table">
-              <tbody>
-                {movieCast.data &&
-                  Object.keys(movieCast.data.cast).map((item, i) => (
-                    <tr key={i}>
-                      {movieCast.data.cast[item].known_for_department ===
-                      "Acting" ? (
-                        <td
-                          onClick={() =>
-                            handleClickToActorId(movieCast.data.cast[item].id)
-                          }
-                        >
-                          <p>
-                            {movieCast.data.cast[item].name} as{" "}
-                            <span> {movieCast.data.cast[item].character}</span>
-                          </p>
-                          <div className="cta-flex">
-                            View profile
-                            <img src={arrowRight} alt="view actor" />
-                          </div>
-                        </td>
-                      ) : null}
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </>
+      <section
+        onClick={() => setOpenActors(!openActors)}
+        className="details-page-section-3"
+      >
+        <Button
+          open={openActors}
+          className={"heading"}
+          text={"actors"}
+        ></Button>
 
-      <div className="movies-container">
-        <HeadingSm text="You might also like"></HeadingSm>
+        {openActors && (
+          <>
+            {movieDetails.data.credits.cast.map((actor, i) => (
+              <div key={i} onClick={() => handleClickToActorId(actor.id)}>
+                <Row
+                  label={`${actor.name} as - ${actor.character}`}
+                  text="view"
+                  icon={<ArrowUpRight />}
+                />
+              </div>
+            ))}
+          </>
+        )}
+      </section>
+
+      <section className="details-page-section-4">
+        <MarqueeSubheading textArray={subtitleArray}></MarqueeSubheading>
         {similarMovies?.data && (
           <>
             <PageGridModule>
@@ -154,30 +164,28 @@ const MoviePage = () => {
                   return null;
                 } else if (i < loadMovies) {
                   return (
-                    <React.Fragment key={i}>
+                    <div className="card-wrapper" key={movie.id}>
                       <Card
                         onClick={() => handleClickToMovieId(movie.id)}
-                        src={movie.backdrop_path}
+                        src={movie.poster_path}
                         title={movie.title}
                       ></Card>
-                    </React.Fragment>
+                    </div>
                   );
                 }
               })}
             </PageGridModule>
             {loadMovies < similarMovies.data.results.length ? (
-              <Button
-                className="btn-wrapper"
-                cta="Load more"
-                onClick={handleLoadMore}
-              ></Button>
+              <LoadMoreBtn
+                onClick={() => setLoadMovies(loadMovies + 8)}
+              ></LoadMoreBtn>
             ) : (
               ""
             )}
           </>
         )}
-      </div>
-    </motion.section>
+      </section>
+    </section>
   );
 };
 
