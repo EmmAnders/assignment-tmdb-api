@@ -1,0 +1,15 @@
+@import "../../abstracts/Breakpoints.scss";
+@import "../../abstracts/Settings.scss";
+
+.load-more-btn {
+  display: flex;
+  justify-content: center;
+  padding: $padding-l;
+
+  button {
+    font-size: 0.8rem;
+    border: $border;
+    border-radius: 50px;
+    padding: $padding-xs $padding-xl;
+  }
+}
