@@ -1,7 +1,10 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Switch, Route, useLocation } from "react-router-dom";
 
+import { AnimatePresence } from "framer-motion";
 import { Context } from "./contexts/Context";
+
+import Cursor from "./components/fragments/Cursor";
 
 import SiteNavigation from "./components/navigation/SiteNavigation";
 import Home from "./pages/Home";
@@ -12,54 +15,58 @@ import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
 import MoviesLatest from "./pages/MoviesLatest";
+import Noise from "./assets/filters/Noise.svg";
 
 import "./assets/scss/base/Global.scss";
+import "./App.scss";
+
+const routes = [
+  { path: "/", name: "Home", Component: Home },
+  { path: "/movies/search", name: "Search", Component: Search },
+  { path: "/movies/latest", name: "Latest", Component: MoviesLatest },
+  { path: "/movies/top-rated", name: "Top rated", Component: MoviesTopRated },
+  {
+    path: "/movies/most-popular",
+    name: "Most popular",
+    Component: MoviesPopular,
+  },
+  {
+    path: "/movies/genre/:name/:id",
+    name: "Movies By Genre",
+    Component: MoviesByGenrePage,
+  },
+  { path: "/movies/:id", name: "Movie Page", Component: MoviePage },
+
+  { path: "/movies/actor/:id", name: "Actor Page", Component: ActorPage },
+];
 
 function App() {
-  const { searchQuery } = useContext(Context);
+  const location = useLocation();
+
+  useEffect(() => {
+    document.body.style.backgroundImage = `url(${Noise})`;
+  }, []);
 
   return (
-    <>
+    <div>
+      <Cursor />
       <header>
         <SiteNavigation />
-        {/*       {openSearch && <SearchInput />} */}
       </header>
       <main className="site-container">
-        <Switch>
-          <Route exact path="/movies/search">
-            <Search />
-          </Route>
-          
-          <Route exact path="/">
-            <Home />
-          </Route>
-
-          <Route exact path="/movies/latest">
-            <MoviesLatest />
-          </Route>
-
-          <Route exact path="/movies/top-rated">
-            <MoviesTopRated />
-          </Route>
-
-          <Route exact path="/movies/most-popular">
-            <MoviesPopular />
-          </Route>
-
-          <Route exact path="/movies/genre/:name/:id">
-            <MoviesByGenrePage />
-          </Route>
-
-          <Route exact path="/movies/:id">
-            <MoviePage />
-          </Route>
-
-          <Route exact path="/movies/actor/:id">
-            <ActorPage />
-          </Route>
-        </Switch>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            {routes.map(({ path, Component }) => (
+              <Route key={path} exact path={path}>
+                <div>
+                  <Component />
+                </div>
+              </Route>
+            ))}
+          </Switch>
+        </AnimatePresence>
       </main>
-    </>
+    </div>
   );
 }
 
