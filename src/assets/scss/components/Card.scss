@@ -18,17 +18,16 @@
       width: 60%;
       height: 60%;
       margin: 0 auto;
-      transition: 0.8s;
       object-fit: cover;
-      -webkit-filter: grayscale(0%);
-      filter: grayscale(0%);
-
-      @include tablet {
-      }
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+      -webkit-transition: 0.4s ease;
+      transition: 0.4s ease;
 
       &:hover {
-        -webkit-filter: grayscale(100%);
-        filter: grayscale(100%);
+        -webkit-filter: grayscale(0%);
+        filter: grayscale(0%);
+        transform: scale(1.01);
       }
     }
   }

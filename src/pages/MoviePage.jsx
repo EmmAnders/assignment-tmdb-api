@@ -7,6 +7,9 @@ import { useQuery } from "react-query";
 import { getMovieDetails, getSimiliarMovies } from "../services/API";
 import { Context } from "../contexts/Context";
 
+import { motion } from "framer-motion";
+import { PageAnimation, fade } from "../components/animation/animation.js";
+
 //Components
 import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeading from "../components/common/MarqueeHeading";
@@ -57,12 +60,22 @@ const MoviePage = () => {
         movieDetails.data.title,
         movieDetails.data.title,
         movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
       ]);
     }
   }, [movieDetails.data]);
 
   return (
-    <section className="details-page">
+    <motion.section
+      variants={PageAnimation}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      className="details-page"
+    >
       <BackButton />
       {movieDetails.data && (
         <>
@@ -70,7 +83,8 @@ const MoviePage = () => {
           <section className="details-page-section-1">
             <div className="details-page-section-1-inner inner-left">
               <div className="poster">
-                <img
+                <motion.img
+                  variants={fade}
                   src={baseUrlImg + movieDetails.data.poster_path}
                   alt={movieDetails.data.title}
                 />
@@ -78,12 +92,13 @@ const MoviePage = () => {
             </div>
 
             <div className="details-page-section-1-inner inner-right">
-              <div>
+              <motion.div variants={fade}>
                 <p>{movieDetails.data.overview}</p>
-              </div>
+              </motion.div>
             </div>
           </section>
-          <section
+          <motion.section
+            variants={fade}
             onClick={() => setOpenDetails(!openDetails)}
             className="details-page-section-2"
           >
@@ -125,7 +140,7 @@ const MoviePage = () => {
                 </div>
               </div>
             )}
-          </section>
+          </motion.section>
         </>
       )}
 
@@ -185,7 +200,7 @@ const MoviePage = () => {
           </>
         )}
       </section>
-    </section>
+    </motion.section>
   );
 };
 

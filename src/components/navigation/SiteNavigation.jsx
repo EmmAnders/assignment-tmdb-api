@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavLink } from "react-router-dom";
+
+import { motion } from "framer-motion";
+import { stagger } from "../animation/animation.js";
+
+import Noise from "../../assets/filters/Noise.svg";
 
 import { Context } from "../../contexts/Context";
 import SiteNavigationLinks from "./SiteNavigationLinks";
@@ -14,13 +18,17 @@ const SiteNavigation = () => {
 
   return (
     <>
-      <nav className="site-navigation">
+      <motion.nav
+        initial={false}
+        animate={isExpanded ? "open" : "closed"}
+        className="site-navigation"
+      >
         <div className="site-navigation-controls">
           <button
             className={isExpanded ? "expanded-menu-color" : ""}
             onClick={handleMenu}
           >
-            MOVIES
+            MENU
           </button>
           <button
             onClick={handleSearch}
@@ -32,9 +40,9 @@ const SiteNavigation = () => {
 
         {isExpanded && (
           <>
-            <ul className="site-navigation-dropdown ">
+            <motion.ul variants={stagger} className="site-navigation-dropdown">
               <SiteNavigationLinks />
-            </ul>
+            </motion.ul>
 
             <div
               onClick={handleMenu}
@@ -44,7 +52,7 @@ const SiteNavigation = () => {
         )}
 
         {openSearch && <SearchInput />}
-      </nav>
+      </motion.nav>
     </>
   );
 };

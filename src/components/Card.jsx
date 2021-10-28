@@ -1,4 +1,5 @@
 import React from "react";
+import Noise from "../assets/filters/Noise.svg";
 
 import "../assets/scss/components/Card.scss";
 
@@ -7,12 +8,9 @@ const Card = (props) => {
 
   return (
     <div ref={props.ref} onClick={props.onClick} className="card">
-      <div className="card-content-wrapper">
-        <div className="img-wrapper">
-          <img
-            src={props.src ? baseUrlImg + props.src : null}
-            alt={props.alt}
-          />
+      <div className="card-content-wrapper ">
+        <div className="img-wrapper ">
+          <img src={props.src ? baseUrlImg + props.src : null} />
         </div>
         <div className="card-title">
           <h4>{props.title}</h4>

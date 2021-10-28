@@ -8,9 +8,9 @@ html {
 
 body {
   /* font-size: 1rem; */
+  cursor: none;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   scroll-behavior: smooth;
   line-height: 1.5;
   background-color: $color-default-bg;
@@ -90,8 +90,42 @@ input {
   width: 100%;
 }
 
-.site-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.cursor-dot,
+.cursor-dot-outline {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(#9198e5, #2c5696);
+  filter: blur(7px);
+  z-index: 2000;
+  user-select: none;
+  pointer-events: none;
+}
+
+.follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  border: $border;
+  border-radius: 50%;
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+  z-index: 10;
 }

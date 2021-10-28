@@ -1,8 +1,9 @@
 @import "./assets/scss/abstracts/Breakpoints.scss";
 @import "./assets/scss/abstracts/Settings.scss";
 
-
-
+* {
+  cursor: none;
+}
 
 h1,
 h2,

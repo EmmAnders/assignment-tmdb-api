@@ -1,8 +1,87 @@
 @import "../abstracts/Breakpoints.scss";
 @import "../abstracts/Settings.scss";
+
 .home-container {
-  @include tablet {
-    justify-content: space-between;
-    margin-top: 0vh;
+  .grid {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*     top: 10vh; */
+    left: -5%;
+    display: grid;
+    grid-template-columns: repeat(50, 2%);
+    grid-template-rows: repeat(50, 2%);
+  }
+
+  .grid__item {
+    position: relative;
+  }
+
+  .grid--img .grid__item {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .grid__item-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
+
+  .grid--img .grid__item-img {
+    flex: none;
+    width: calc(100% + 100px);
+    height: calc(100% + 100px);
+    will-change: transform;
+  }
+
+  .pos-1 {
+    grid-area: 10 / 1 / 26 / 7;
+  }
+
+  .pos-2 {
+    grid-area: 1 / 18 / 9 / 27;
+  }
+
+  .pos-3 {
+    grid-area: 1 / 36 / 14 / 42;
+  }
+
+  .pos-4 {
+    grid-area: 13 / 11 / 32 / 18;
+  }
+
+  .pos-5 {
+    grid-area: 17 / 32 / 32 / 38;
+  }
+
+  .pos-6 {
+    grid-area: 20 / 46 / 28 / 51;
+  }
+
+  .pos-7 {
+    grid-area: 43 / 1 / 51 / 10;
+  }
+
+  .pos-8 {
+    grid-area: 38 / 14 / 46 / 22;
+  }
+
+  .pos-9 {
+    grid-area: 40 / 26 / 51 / 32;
+  }
+
+  .pos-10 {
+    grid-area: 37 / 39 / 48 / 47;
+  }
+
+  .pos-11 {
+    grid-area: 20 / 25 / 30 / 30;
   }
 }

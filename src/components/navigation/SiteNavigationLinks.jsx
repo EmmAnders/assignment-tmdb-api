@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Context } from "../../contexts/Context";
 
-import { gsap } from "gsap";
+import { motion } from "framer-motion";
+import { iconHoverRight } from "../animation/animation.js";
 
 import "../../assets/scss/components/navigation/SiteNavigation.scss";
 import SiteNavigationChildren from "./SiteNavigationChildren";
@@ -10,7 +11,7 @@ import SiteNavigationChildren from "./SiteNavigationChildren";
 import ArrowRight from "../fragments/ArrowRight";
 
 const SiteNavigationLinks = (props) => {
-  const { handleMenu, isExpanded } = useContext(Context);
+  const { handleMenu } = useContext(Context);
   const siteLinks = [
     {
       to: "/",
@@ -32,27 +33,6 @@ const SiteNavigationLinks = (props) => {
 
   const [openSubmenu, setOpenSubmenu] = useState(false);
 
-  const elements = useRef(null);
-  elements.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !elements.current.includes(el)) {
-      elements.current.push(el);
-    }
-  };
-
-  const mouseEnter = () => {
-    gsap.to(elements.current, { x: 5, ease: "Ease.In" });
-  };
-
-  const mouseLeave = () => {
-    gsap.to(elements.current, { x: 0, ease: "Ease.In" });
-  };
-
-  useEffect(() => {
-    /*  console.log(elements.current); */
-  });
-
   const handleOpenSubmenu = () => {
     setOpenSubmenu(!openSubmenu);
   };
@@ -60,22 +40,24 @@ const SiteNavigationLinks = (props) => {
   return (
     <>
       {siteLinks.map((link, i) => (
-        <li
-          /*     onMouseEnter={mouseEnter}
-          onMouseLeave={mouseLeave} */
+        <motion.li
           key={i}
           className="site-navigation-link"
+          initial="rest"
+          whileHover="hover"
+          animate="rest"
         >
-          <NavLink onClick={handleMenu} to={link.to}>
+          <NavLink onClick={handleMenu} to={link.to} exact>
             {link.name}
           </NavLink>
-          <ArrowRight svgRef={addToRefs} />
-        </li>
+
+          <ArrowRight variants={iconHoverRight} />
+        </motion.li>
       ))}
 
       <li onClick={handleOpenSubmenu} className="site-navigation-link ">
         <p onClick={handleOpenSubmenu}>movies by genre</p>
-        <ArrowRight svgRef={addToRefs} />
+        <ArrowRight />
       </li>
 
       {openSubmenu && (
