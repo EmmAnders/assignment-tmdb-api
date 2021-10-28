@@ -7,27 +7,25 @@ body.site-navigation-expanded {
 
 .site-navigation {
   text-transform: uppercase;
-
-  .expanded-menu-color {
-    /* color: $color-white; */
-  }
+  color: $color-white;
 
   &-controls {
     display: flex;
     height: 6vh;
-    z-index: 100;
+    z-index: 14;
 
     button {
       z-index: 20;
       border: $border;
       width: 100%;
+      font-size: 0.7rem;
     }
   }
 
   ul {
     margin: 0;
     padding: 0;
-    padding-top: 6vh;
+    padding-top: 2vh;
   }
 
   &-link {
@@ -35,6 +33,7 @@ body.site-navigation-expanded {
     justify-content: space-between;
     align-items: center;
     font-size: 0.8rem;
+    transition: 0.2s;
 
     a {
       width: 100%;
@@ -48,21 +47,21 @@ body.site-navigation-expanded {
     }
 
     svg {
-      stroke: $color-black;
+      stroke: $color-white;
       stroke-width: 1;
     }
 
     &:hover {
-      background: $color-black;
-      color: $color-white;
+      background: $color-white;
+      color: $color-black;
       cursor: pointer;
       svg {
-        stroke: $color-white;
+        stroke: $color-black;
       }
     }
 
     &:not(:last-child) {
-      border-bottom: $border;
+      border-bottom: 1px solid $color-white;
     }
 
     &-submenu {
@@ -77,8 +76,8 @@ body.site-navigation-expanded {
         font-size: 0.6rem;
 
         &:hover {
-          background: $color-black;
-          color: $color-white;
+          background: $color-white;
+          color: $color-black;
           cursor: pointer;
         }
       }
@@ -90,12 +89,12 @@ body.site-navigation-expanded {
   }
 
   &-dropdown {
-    background: $color-white;
     position: fixed;
     left: 0;
     right: 0;
-    top: 0;
+    top: 6vh;
     z-index: 11;
+    background: $color-black;
   }
 
   &-overlay_show {
@@ -104,7 +103,7 @@ body.site-navigation-expanded {
     position: fixed;
     left: 0;
     right: 0;
-    top: 0;
+    top: 7vh;
     z-index: 10;
   }
 }
