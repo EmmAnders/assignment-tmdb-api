@@ -11,17 +11,16 @@ import App from "./App";
 const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={true} />
-      <Router>
-        <QueryParamProvider ReactRouterRoute={Route}>
-          <ContextProvider>
-            <App />
-          </ContextProvider>
-        </QueryParamProvider>
-      </Router>
-    </QueryClientProvider>
-  </React.StrictMode>,
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={true} />
+    <Router>
+      <QueryParamProvider ReactRouterRoute={Route}>
+        <ContextProvider>
+          <App />
+        </ContextProvider>
+      </QueryParamProvider>
+    </Router>
+  </QueryClientProvider>,
+
   document.getElementById("root")
 );

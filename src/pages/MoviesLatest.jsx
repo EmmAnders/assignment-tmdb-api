@@ -5,6 +5,9 @@ import { useQueryParam, NumberParam } from "use-query-params";
 //Context, API
 import { getLatestMovies } from "../services/API";
 
+import { motion } from "framer-motion";
+import { PageAnimation } from "../components/animation/animation.js";
+
 //Components
 import MarqueeHeading from "../components/common/MarqueeHeading";
 import Pagination from "../components/Pagination";
@@ -44,7 +47,12 @@ const MoviesLatest = () => {
       {isError && <p>({error})</p>}
 
       {data?.results && (
-        <>
+        <motion.div
+          variants={PageAnimation}
+          initial="hidden"
+          animate="show"
+          exit="exit"
+        >
           <MarqueeHeading textArray={textArray}></MarqueeHeading>
           <MoviesModule data={data} />
           <Pagination
@@ -59,7 +67,7 @@ const MoviesLatest = () => {
             }}
             disabledNext={isPreviousData || !data.page}
           ></Pagination>
-        </>
+        </motion.div>
       )}
     </>
   );

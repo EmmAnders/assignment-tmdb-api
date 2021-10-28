@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+
 import { motion } from "framer-motion";
+import { PageAnimation } from "../components/animation/animation.js";
 
 //Context, API
 import { Context } from "../contexts/Context";
@@ -43,7 +45,13 @@ const ActorPage = () => {
   }, [profile.data]);
 
   return (
-    <section className="actor-page-container">
+    <motion.section
+      variants={PageAnimation}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      className="actor-page-container"
+    >
       {movies.isError || (profile.isError && <div>{error.message}</div>)}
       {movies.isLoading || (profile.isLoading && <div>Loading...</div>)}
 
@@ -121,7 +129,7 @@ const ActorPage = () => {
           )}
         </>
       )}
-    </section>
+    </motion.section>
   );
 };
 

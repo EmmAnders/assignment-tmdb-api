@@ -17,6 +17,7 @@ const SiteNavigationChildren = (props) => {
               <NavLink
                 onClick={handleMenu}
                 to={`/movies/genre/${genre.name.toLowerCase()}/${genre.id}`}
+                exact
               >
                 {genre.name}
               </NavLink>

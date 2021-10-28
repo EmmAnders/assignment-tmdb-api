@@ -2,7 +2,8 @@ import React, { useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useQueryParam, NumberParam } from "use-query-params";
 
-import { gsap } from "gsap";
+import { motion } from "framer-motion";
+import { PageAnimation } from "../components/animation/animation.js";
 
 //Context, API
 import { getTopRatedMovies } from "../services/API";
@@ -46,7 +47,12 @@ const MoviesTopRated = () => {
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
       {data?.results && (
-        <>
+        <motion.div
+          variants={PageAnimation}
+          initial="hidden"
+          animate="show"
+          exit="exit"
+        >
           <MarqueeHeading textArray={textArray}></MarqueeHeading>
           <MoviesModule data={data} />
           <Pagination
@@ -61,7 +67,7 @@ const MoviesTopRated = () => {
             }}
             disabledNext={isPreviousData || !data.page}
           ></Pagination>
-        </>
+        </motion.div>
       )}
     </>
   );

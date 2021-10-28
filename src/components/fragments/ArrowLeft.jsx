@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 /* import IconArrowRight from "../../../assets/icons/icon-arrow-right"; */
 

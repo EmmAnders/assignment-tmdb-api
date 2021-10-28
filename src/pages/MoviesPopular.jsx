@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { useQueryParam, NumberParam } from "use-query-params";
 
+import { motion } from "framer-motion";
+import { PageAnimation } from "../components/animation/animation.js";
+
 //Context. API
 import { getMostPopularMovies } from "../services/API";
 
@@ -41,7 +44,12 @@ const MoviesPopular = () => {
       {isLoading && <p>Loading movies...</p>}
       {isError && <p>({error})</p>}
       {data?.results && (
-        <>
+        <motion.div
+          variants={PageAnimation}
+          initial="hidden"
+          animate="show"
+          exit="exit"
+        >
           <MarqueeHeading textArray={textArray}></MarqueeHeading>
           <MoviesModule data={data} />
           <Pagination
@@ -56,7 +64,7 @@ const MoviesPopular = () => {
             }}
             disabledNext={isPreviousData || !data.page}
           ></Pagination>
-        </>
+        </motion.div>
       )}
     </>
   );
