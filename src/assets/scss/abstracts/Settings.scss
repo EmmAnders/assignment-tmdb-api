@@ -1,11 +1,11 @@
 /* Colors */
 $color-default-bg: rgba(224, 222, 206, 100);
-$color-default-text: #1f1f1f;
-$color-accent: #1f1f1f;
+$color-default-text: #333333;
+$color-accent: #333333;
 $color-grey: #666666;
-$color-black: #1f1f1f;
-$color-white: #f4f4f4;
-$hover: #3a3939;
+$color-black: #333333;
+$color-white: rgba(224, 222, 206, 100);
+$hover: #333333;
 
 $font-weight-bold: 600;
 $font-weight-normal: 200;
@@ -15,7 +15,7 @@ $font-size-heading-s: 1rem;
 
 $border: 1px solid $color-black;
 $border-light: 1px solid $color-white;
-$overlay: rgba(0, 0, 0, 0.742);
+$overlay: rgba(0, 0, 0, 0.495);
 
 /* Text */
 $font-primary: neue-haas-grotesk, sans-serif;

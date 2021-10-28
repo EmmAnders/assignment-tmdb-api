@@ -2,12 +2,37 @@
 @import "../abstracts/Settings.scss";
 
 .home-container {
-  .grid {
+  &-inner {
+    position: fixed;
+    bottom: 0;
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .links {
+      display: flex;
+      flex-direction: column;
+    }
+    @include desktop {
+      justify-content: space-between;
+      width: 100%;
+
+      .links {
+        flex-direction: row;
+        a:not(:last-child) {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  /*   .grid {
     pointer-events: none;
     position: absolute;
     width: 100%;
     height: 100%;
-    /*     top: 10vh; */
+  
     left: -5%;
     display: grid;
     grid-template-columns: repeat(50, 2%);
@@ -83,5 +108,5 @@
 
   .pos-11 {
     grid-area: 20 / 25 / 30 / 30;
-  }
+  } */
 }

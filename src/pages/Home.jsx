@@ -37,10 +37,15 @@ const Home = () => {
           </div>
         ))}
       </div>
- */}
-      <Link to={"/movies/latest"}>Latest </Link>
-      <Link to={"/movies/most-popular"}>Popular </Link>
-      <Link to={"/movies/top-rated"}> Top rated </Link>
+ */}{" "}
+      <div className="home-container-inner">
+        <p>TMDB MOVIES</p>
+        <div className="links">
+          <Link to={"/movies/latest"}>Latest </Link>
+          <Link to={"/movies/most-popular"}>Popular </Link>
+          <Link to={"/movies/top-rated"}> Top rated </Link>
+        </div>
+      </div>
     </div>
   );
 };
