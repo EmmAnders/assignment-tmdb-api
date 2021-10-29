@@ -11,5 +11,11 @@
     border: $border;
     border-radius: 50px;
     padding: $padding-xs $padding-xl;
+    transition: 0.5s;
+
+    &:hover {
+      background: $color-black;
+      color: $color-white;
+    }
   }
 }

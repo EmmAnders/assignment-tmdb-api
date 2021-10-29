@@ -14,7 +14,7 @@ body.overflow-hidden {
   z-index: 10;
 }
 .search-field {
-  background: $color-black;
+  background: $color-white;
   position: fixed;
   left: 0;
   right: 0;
@@ -30,10 +30,10 @@ body.overflow-hidden {
   }
 
   input {
-    border-bottom: 1px solid $color-white;
-    background: $color-black;
+    border-bottom: 1px solid $color-grey;
+    background: $color-white;
     font-size: 1.6rem;
-    color: $color-white;
+    color: $color-grey;
 
     @include tablet {
       font-size: 2rem;
@@ -41,7 +41,7 @@ body.overflow-hidden {
 
     &::placeholder {
       text-transform: uppercase;
-      color: $color-white;
+      color: $color-grey;
     }
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
@@ -53,7 +53,7 @@ body.overflow-hidden {
 
   p {
     font-size: 0.5rem;
-    color: $color-white;
+    color: $color-black;
     padding-left: $padding-xs;
     padding-top: $padding-s;
   }

@@ -43,10 +43,6 @@ const routes = [
 function App() {
   const location = useLocation();
 
-  useEffect(() => {
-    document.body.style.backgroundImage = `url(${Noise})`;
-  }, []);
-
   return (
     <div>
       <Cursor />

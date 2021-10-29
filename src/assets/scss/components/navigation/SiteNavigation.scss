@@ -7,7 +7,7 @@ body.site-navigation-expanded {
 
 .site-navigation {
   text-transform: uppercase;
-  color: $color-white;
+  color: $color-black;
 
   &-controls {
     display: flex;
@@ -47,13 +47,13 @@ body.site-navigation-expanded {
     }
 
     svg {
-      stroke: $color-white;
+      stroke: $color-black;
       stroke-width: 1;
     }
 
     &:hover {
-      background: $color-white;
-      color: $color-black;
+      background: $color-black;
+      color: $color-white;
       cursor: pointer;
       svg {
         stroke: $color-black;
@@ -61,7 +61,7 @@ body.site-navigation-expanded {
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid $color-white;
+      border-bottom: 1px solid $color-black;
     }
 
     &-submenu {
@@ -76,8 +76,8 @@ body.site-navigation-expanded {
         font-size: 0.6rem;
 
         &:hover {
-          background: $color-white;
-          color: $color-black;
+          background: $color-black;
+          color: $color-white;
           cursor: pointer;
         }
       }
@@ -94,7 +94,7 @@ body.site-navigation-expanded {
     right: 0;
     top: 6vh;
     z-index: 11;
-    background: $color-black;
+    background: $color-white;
   }
 
   &-overlay_show {
