@@ -5,6 +5,9 @@ import { Context } from "../contexts/Context";
 import ArrowRight from "../components/fragments/ArrowRight";
 import Row from "../components/Row";
 
+import PageGridModule from "../components/modules/PageGridModule";
+import Card from "../components/Card";
+
 //Styles
 import "../assets/scss/pages/Home.scss";
 
@@ -12,7 +15,7 @@ const Home = () => {
   const { baseUrlImg } = useContext(Context);
 
   // use for later
-  /*  const images = [
+  const images = [
     "/5hNcsnMkwU2LknLoru73c76el3z.jpg",
     "/bf9shWfUKyEB5oB7awJeKIoCehl.jpg",
     "/3KwAmIKMaDcBMonF5wmyNTL0SR6.jpg",
@@ -23,29 +26,24 @@ const Home = () => {
     "/d0IwJw1p2H0WYhk1iCwVNygpsUs.jpg",
     "/dua5ojcdfLjdwgO911H9HX3a5tV.jpg",
     "/u3tkHXc5wzRFfRXyjGsAlfCIJuh.jpg",
-  ]; */
+  ];
 
   return (
     <div className="home-container">
-      {/*    <div className="grid">
-        {images.map((url, i) => (
-          <div className={`grid__item pos-${i + 1}`}>
-            <div
-              style={{ backgroundImage: "url(" + baseUrlImg + url + ")" }}
-              className="grid__item-img"
-            ></div>
-          </div>
-        ))}
-      </div>
- */}{" "}
-      <div className="home-container-inner">
-        <p>TMDB MOVIES</p>
-        <div className="links">
+      <PageGridModule>
+        <div className="home-container-inner">
+          <p>TMDB MOVIES</p>
+        </div>
+        <div>
           <Link to={"/movies/latest"}>Latest </Link>
+        </div>
+        <div>
           <Link to={"/movies/most-popular"}>Popular </Link>
+        </div>
+        <div>
           <Link to={"/movies/top-rated"}> Top rated </Link>
         </div>
-      </div>
+      </PageGridModule>
     </div>
   );
 };
