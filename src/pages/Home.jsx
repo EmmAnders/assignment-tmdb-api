@@ -2,11 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../contexts/Context";
 
-import ArrowRight from "../components/fragments/ArrowRight";
-import Row from "../components/Row";
-
 import PageGridModule from "../components/modules/PageGridModule";
-import Card from "../components/Card";
 
 //Styles
 import "../assets/scss/pages/Home.scss";

@@ -10,16 +10,13 @@ import MoviesModule from "../components/modules/MoviesModule";
 //Styles
 import "../assets/scss/pages/Search.scss";
 //Styles
-import "../assets/scss/components/SearchInput.scss";
+import "../assets/scss/components/navigation/SearchInput.scss";
 
 const Search = () => {
   const history = useHistory();
-  const {
-    searchQuery,
-    data,
-    setOpenSearch,
-    setSearchQuery,
-  } = useContext(Context);
+  const { searchQuery, data, setOpenSearch, setSearchQuery } = useContext(
+    Context
+  );
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

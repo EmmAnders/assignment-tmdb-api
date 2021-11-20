@@ -10,7 +10,7 @@ import { getMostPopularMovies } from "../services/API";
 
 //Components
 import MarqueeHeading from "../components/common/MarqueeHeading";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/common/Pagination";
 import MoviesModule from "../components/modules/MoviesModule";
 
 const MoviesPopular = () => {

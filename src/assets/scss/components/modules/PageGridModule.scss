@@ -4,7 +4,10 @@
 .page-grid {
   .page-grid-inner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(50vw, 1fr));
+    }
+
     box-sizing: border-box;
 
     & > * {

@@ -14,11 +14,11 @@ import { PageAnimation, fade } from "../components/animation/animation.js";
 import PageGridModule from "../components/modules/PageGridModule";
 import MarqueeHeading from "../components/common/MarqueeHeading";
 import MarqueeSubheading from "../components/common/MarqueeSubheading";
-import Row from "../components/Row";
+import Row from "../components/common/Row";
 import Button from "../components/common/Btn";
 import LoadMoreBtn from "../components/common/LoadMoreBtn";
 import BackButton from "../components/common/BackButton";
-import Card from "../components/Card";
+import Card from "../components/common/Card";
 
 //Styles
 import "../assets/scss/pages/Movie.scss";
@@ -30,6 +30,9 @@ const MoviePage = () => {
   const history = useHistory();
   const [titleArray, setTitleArray] = useState([]);
   const [subtitleArray, setSubitleArray] = useState([
+    "You might also like",
+    "You might also like",
+    "You might also like",
     "You might also like",
     "You might also like",
     "You might also like",
@@ -56,6 +59,9 @@ const MoviePage = () => {
   useEffect(() => {
     if (movieDetails.data) {
       setTitleArray([
+        movieDetails.data.title,
+        movieDetails.data.title,
+        movieDetails.data.title,
         movieDetails.data.title,
         movieDetails.data.title,
         movieDetails.data.title,
@@ -148,6 +154,8 @@ const MoviePage = () => {
         onClick={() => setOpenActors(!openActors)}
         className="details-page-section-3"
       >
+
+
         <Button
           open={openActors}
           className={"heading"}
@@ -157,7 +165,7 @@ const MoviePage = () => {
         {openActors && (
           <>
             {movieDetails.data.credits.cast.map((actor, i) => (
-              <div key={i} onClick={() => handleClickToActorId(actor.id)}>
+              <div className="actors" key={i} onClick={() => handleClickToActorId(actor.id)}>
                 <Row
                   label={`${actor.name} as - ${actor.character}`}
                   text="view"
@@ -184,6 +192,8 @@ const MoviePage = () => {
                         onClick={() => handleClickToMovieId(movie.id)}
                         src={movie.poster_path}
                         title={movie.title}
+                        description={movie.overview}
+                        release={movie.release_date}
                       ></Card>
                     </div>
                   );

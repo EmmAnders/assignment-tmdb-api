@@ -12,7 +12,7 @@ import { getMoviesByActorId, getActorProfileById } from "../services/API";
 //Components
 import MarqueeHeading from "../components/common/MarqueeHeading";
 import PageGridModule from "../components/modules/PageGridModule";
-import Card from "../components/Card";
+import Card from "../components/common/Card";
 import ArrowUpRight from "../components/fragments/ArrowUpRight";
 import LoadMoreBtn from "../components/common/LoadMoreBtn";
 import BackButton from "../components/common/BackButton";
@@ -114,6 +114,9 @@ const ActorPage = () => {
                       onClick={() => handleClickToMovieId(movie.id)}
                       src={movie.poster_path}
                       title={movie.title}
+                      description={movie.overview}
+                      release={movie.release_date}
+                      vote_average={movie.vote_average}
                     ></Card>
                   </div>
                 );

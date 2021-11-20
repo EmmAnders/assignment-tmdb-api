@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../assets/scss/components/Row.scss";
+import "../../assets/scss/components/common/Row.scss";
 
 const Row = (props) => {
   return (

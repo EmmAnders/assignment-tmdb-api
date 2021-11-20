@@ -3,8 +3,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { stagger } from "../animation/animation.js";
 
-import Noise from "../../assets/filters/Noise.svg";
-
 import { Context } from "../../contexts/Context";
 import SiteNavigationLinks from "./SiteNavigationLinks";
 import SearchInput from "../navigation/SearchInput";

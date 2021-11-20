@@ -12,7 +12,7 @@ import { PageAnimation } from "../components/animation/animation.js";
 
 //Components
 import MarqueeHeading from "../components/common/MarqueeHeading";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/common/Pagination";
 
 const GenrePage = () => {
   const { id, name } = useParams();

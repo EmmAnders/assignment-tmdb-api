@@ -1,7 +1,7 @@
 /* Colors */
 $color-default-bg: #fff;
 $color-default-text: #333333;
-$color-accent: #333333;
+$color-accent: #e0e3ae;
 $color-grey: #666666;
 $color-black: #333333;
 $color-white: #fff;
@@ -11,6 +11,7 @@ $font-weight-bold: 600;
 $font-weight-normal: 200;
 
 $font-size-heading-l: 2rem;
+$font-size-heading-m: 1.3rem;
 $font-size-heading-s: 1rem;
 
 $border: 1px solid $color-black;
@@ -18,8 +19,8 @@ $border-light: 1px solid $color-white;
 $overlay: rgba(0, 0, 0, 0.495);
 
 /* Text */
-$font-primary: neue-haas-grotesk, sans-serif;
-$font-secondary: neue-haas-grotesk, sans-serif;
+$font-primary: degular, sans-serif;
+$font-secondary: degular, sans-serif;
 $letter-spacing-small: 0px;
 $letter-spacing-large: 0px;
 

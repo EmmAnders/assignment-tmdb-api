@@ -10,7 +10,7 @@ import { PageAnimation } from "../components/animation/animation.js";
 
 //Components
 import MarqueeHeading from "../components/common/MarqueeHeading";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/common/Pagination";
 import MoviesModule from "../components/modules/MoviesModule";
 
 //Styles
@@ -32,6 +32,9 @@ const MoviesLatest = () => {
 
   // Text Array for Heading
   let textArray = [
+    "latest",
+    "latest",
+    "latest",
     "latest",
     "latest",
     "latest",
