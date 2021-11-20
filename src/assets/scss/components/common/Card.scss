@@ -45,11 +45,12 @@
 
   &-left {
     position: relative;
-    padding-bottom: 150%;
+    padding-bottom: 130%;
     height: 0;
     overflow: hidden;
 
     img {
+      object-fit: cover;
       position: absolute;
       top: 0;
       left: 0;
@@ -97,8 +98,8 @@
           z-index: -1;
 
           @include tablet {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
           }
         }
       }
