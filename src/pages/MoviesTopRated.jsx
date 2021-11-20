@@ -10,7 +10,7 @@ import { getTopRatedMovies } from "../services/API";
 
 //Components
 import MoviesModule from "../components/modules/MoviesModule";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/common/Pagination";
 import MarqueeHeading from "../components/common/MarqueeHeading";
 
 const MoviesTopRated = () => {

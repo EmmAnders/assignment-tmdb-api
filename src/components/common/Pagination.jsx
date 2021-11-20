@@ -1,8 +1,6 @@
 import React from "react";
 
-import "../assets/scss/components/Pagination.scss";
-/* import arrowLeft from "../assets/icons/arrow-left.svg";
-import arrowRight from "../assets/icons/arrow-right.svg"; */
+import "../../assets/scss/components/common/Pagination.scss";
 
 const Pagination = (props) => {
   return (

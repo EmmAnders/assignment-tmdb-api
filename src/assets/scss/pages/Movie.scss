@@ -17,13 +17,6 @@
       border-bottom: $border;
       border-right: $border;
 
-      /*   background-color: rgb(41, 40, 40);
-      background-image: radial-gradient($color-white 20%, transparent 20%),
-        radial-gradient($color-white 20%, transparent 20%);
-      background-color: $color-black;
-      background-position: 0 0, 50px 50px;
-      background-size: 2px 5px; */
-
       .poster {
         margin: 0 auto;
         padding: $padding-s;
@@ -77,7 +70,6 @@
 
   &-section-2,
   &-section-3 {
-    cursor: pointer;
     .heading {
       text-align: center;
       border-bottom: $border;
@@ -85,6 +77,12 @@
     }
   }
 
-  &-section-4 {
+  &-section-3 {
+    .actors {
+      &:hover {
+        background: $color-black;
+        color: $color-white;
+      }
+    }
   }
 }

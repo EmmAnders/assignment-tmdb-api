@@ -2,9 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
-import { Context } from "./contexts/Context";
-
-import Cursor from "./components/fragments/Cursor";
 
 import SiteNavigation from "./components/navigation/SiteNavigation";
 import Home from "./pages/Home";
@@ -15,7 +12,6 @@ import MoviePage from "./pages/MoviePage";
 import ActorPage from "./pages/ActorPage";
 import MoviesByGenrePage from "./pages/MoviesByGenrePage";
 import MoviesLatest from "./pages/MoviesLatest";
-import Noise from "./assets/filters/Noise.svg";
 
 import "./assets/scss/base/Global.scss";
 import "./App.scss";
@@ -45,7 +41,6 @@ function App() {
 
   return (
     <div>
-      <Cursor />
       <header>
         <SiteNavigation />
       </header>

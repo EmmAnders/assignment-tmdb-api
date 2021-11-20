@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 //Components
 import PageGridModule from "./PageGridModule";
-import Card from "../Card";
+import Card from "../common/Card";
 
 //Styles
 import "../../assets/scss/pages/Movies.scss";
@@ -25,6 +25,9 @@ const MoviesModule = ({ data }) => {
                 onClick={() => handleClickToMovieId(movie.id)}
                 src={movie.poster_path}
                 title={movie.title}
+                description={movie.overview}
+                release={movie.release_date}
+                vote_average={movie.vote_average}
               ></Card>
             </div>
           ))}

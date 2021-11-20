@@ -2,29 +2,16 @@
 @import "../abstracts/Settings.scss";
 
 .home-container {
-  &-inner {
-    position: fixed;
-    bottom: 0;
-    font-size: 2rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 
-    .links {
-      display: flex;
-      flex-direction: column;
-    }
-    @include desktop {
-      justify-content: space-between;
-      width: 100%;
-
-      .links {
-        flex-direction: row;
-        a:not(:last-child) {
-          margin-right: 30px;
-        }
-      }
-    }
+  a {
+    padding: $padding-xs;
+  }
+  @include desktop {
   }
 
   /*   .grid {

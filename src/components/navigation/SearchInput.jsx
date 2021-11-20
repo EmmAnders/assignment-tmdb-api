@@ -3,7 +3,7 @@ import { Context } from "../../contexts/Context";
 import { useHistory } from "react-router-dom";
 
 //Styles
-import "../../assets/scss/components/SearchInput.scss";
+import "../../assets/scss/components/navigation/SearchInput.scss";
 
 const Search = (props) => {
   const history = useHistory();

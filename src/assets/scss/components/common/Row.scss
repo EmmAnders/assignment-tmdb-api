@@ -1,11 +1,12 @@
-@import "../abstracts/Breakpoints.scss";
-@import "../abstracts/Settings.scss";
+@import "../../abstracts/Breakpoints.scss";
+@import "../../abstracts/Settings.scss";
 
 .row {
   display: flex;
   justify-content: space-between;
   border-bottom: $border;
   padding: $padding-xs $padding-s;
+  
   p {
     text-transform: uppercase;
     font-size: 0.8rem;
