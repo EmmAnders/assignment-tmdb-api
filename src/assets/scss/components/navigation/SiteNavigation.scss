@@ -20,7 +20,8 @@ body.site-navigation-expanded {
 
     button {
       z-index: 20;
-      border: $border;
+      border-bottom: $border;
+      border-right: $border;
       width: 100%;
       font-size: 0.7rem;
       padding: $padding-xs;
@@ -60,6 +61,7 @@ body.site-navigation-expanded {
       background: $color-black;
       color: $color-white;
       cursor: pointer;
+      text-indent: 20px;
       svg {
         stroke: $color-white;
       }
