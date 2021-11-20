@@ -15,10 +15,9 @@ const Card = (props) => {
       </div>
 
       <div className="card-right">
-        <p>{props.description}</p>
         <div className="card-right-bottom">
           <p>View</p>
-          <p className="card-right-bottom-votes" >{props.vote_average}</p>
+          <p className="card-right-bottom-votes">{props.vote_average}</p>
         </div>
       </div>
     </div>
