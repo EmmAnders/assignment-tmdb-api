@@ -1,20 +1,22 @@
 @import "../../abstracts/Breakpoints.scss";
 @import "../../abstracts/Settings.scss";
+@import "../../abstracts/Mixins.scss";
 
 .card {
   cursor: pointer;
+  height: 100%;
 
   @include tablet {
     display: grid;
     grid-template-areas:
       "title title"
-      "img  details"
       "img  details";
   }
   &-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     &-release {
       font-size: 0.8rem;
@@ -35,16 +37,19 @@
   }
 
   &-left {
-    @include tablet {
-      grid-area: img;
-      border-right: $border;
-    }
+    width: 100%;
+    height: 100%;
 
     img {
       object-fit: cover;
       width: 100%;
-      height: 500px;
+      height: 100%;
       filter: saturate(50%);
+      max-height: 500px;
+    }
+    @include tablet {
+      grid-area: img;
+      border-right: $border;
     }
   }
 
@@ -52,6 +57,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
     @include tablet {
       grid-area: details;
     }
@@ -61,41 +67,31 @@
     &-bottom {
       display: flex;
       justify-content: space-between;
-    }
-  }
-}
-/* .card {
-  cursor: pointer;
-  @include tablet {
-  }
 
-  .card-content-wrapper {
-    padding: $padding-s;
-  }
+      &-votes {
+        position: relative;
+        color: $color-white;
+        margin-right: $padding-xs;
 
-  .img-wrapper {
-    border: $border;
-    img {
-      margin: 0 auto;
-      object-fit: cover;
-      filter: saturate(30%);
-      -webkit-transition: 0.4s ease;
-      transition: 0.4s ease;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: $border;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          background: $color-black;
+          z-index: -1;
 
-      &:hover {
-        transform: scale(1.01);
-      }
-    }
-  }
-
-  .card-title {
-    padding-top: $padding-l;
-    h4 {
-      font-size: 0.7rem;
-      letter-spacing: 0px;
-      @include desktop-lg {
+          @include tablet {
+            width: 40px;
+            height: 40px;
+          }
+        }
       }
     }
   }
 }
- */

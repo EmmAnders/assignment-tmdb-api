@@ -154,8 +154,6 @@ const MoviePage = () => {
         onClick={() => setOpenActors(!openActors)}
         className="details-page-section-3"
       >
-
-
         <Button
           open={openActors}
           className={"heading"}
@@ -165,7 +163,11 @@ const MoviePage = () => {
         {openActors && (
           <>
             {movieDetails.data.credits.cast.map((actor, i) => (
-              <div className="actors" key={i} onClick={() => handleClickToActorId(actor.id)}>
+              <div
+                className="actors"
+                key={i}
+                onClick={() => handleClickToActorId(actor.id)}
+              >
                 <Row
                   label={`${actor.name} as - ${actor.character}`}
                   text="view"
@@ -194,6 +196,7 @@ const MoviePage = () => {
                         title={movie.title}
                         description={movie.overview}
                         release={movie.release_date}
+                        vote_average={movie.vote_average}
                       ></Card>
                     </div>
                   );
