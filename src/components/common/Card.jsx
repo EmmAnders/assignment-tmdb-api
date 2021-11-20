@@ -8,7 +8,6 @@ const Card = (props) => {
     <div onClick={props.onClick} className="card">
       <div className="card-top">
         <p className="card-top-title">{props.title}</p>
-        <p className="card-top-release">{props.release}</p>
       </div>
       <div className="card-left">
         <img src={props.src ? baseUrlImg + props.src : null} />
