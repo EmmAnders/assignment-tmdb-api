@@ -13,24 +13,19 @@
       "img  details";
   }
   &-top {
-    height: 5vh;
-    @include tablet {
-      grid-area: title;
-    }
-    @include desktop {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    font-size: $font-size-heading-m;
 
-    flex-wrap: wrap;
+    @include tablet {
+      height: 5vh;
+      grid-area: title;
+      font-size: $font-size-heading-s;
+    }
 
     &-release {
       font-size: 0.8rem;
-    }
-
-    @include desktop {
-      font-size: $font-size-heading-m;
     }
 
     border-bottom: $border;
